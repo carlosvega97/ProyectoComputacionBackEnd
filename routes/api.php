@@ -40,3 +40,5 @@ Route::resource('Viviendas', ViviendasController::class, ['only' =>['index', 'sh
 Route::get('Usuarios/existeUsuario/{usuario}', [UsuariosController::class, 'existeUsuario']);
 Route::get('Usuarios/checkPassword/{usuario}/{password}', [UsuariosController::class, 'checkPassword']);
 Route::get('Usuarios/isAdmin/{usuario}', [UsuariosController::class, 'isAdmin']);
+
+Route::post('Usuarios/createUser', [UsuariosController::class, 'createUser']);
