@@ -128,6 +128,7 @@ class UsuariosController extends Controller
             'apellido' => $usuario->apellido,
             'correo' => $usuario->correo,
             'contrasena' => $usuario->contrasena,
+            'idMunicipio' => $usuario->idMunicipio,
             'rol' => 0,
         ]);
 
