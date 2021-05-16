@@ -54,6 +54,18 @@ class MunicipiosController extends Controller
     }
 
     /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function showFromProvincia($id)
+    {
+        $municipio = Municipio::where('CODPROV', $id)->get();
+        return response()->json($municipio, JsonResponse::HTTP_OK);
+    }
+
+    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
