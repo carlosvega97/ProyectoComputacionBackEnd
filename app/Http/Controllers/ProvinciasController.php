@@ -49,7 +49,7 @@ class ProvinciasController extends Controller
      */
     public function show($id)
     {
-        $provincia = Provincia::where('CODPROV', $id)->firstOrFail();;
+        $provincia = Provincia::where('CODPROV', $id)->firstOrFail();
         return response()->json($provincia, JsonResponse::HTTP_OK);
     }
 
@@ -61,7 +61,7 @@ class ProvinciasController extends Controller
      */
     public function showFromComunidad($id)
     {
-        $provincia = Provincia::where('CODAUTO', $id)->firstOrFail();;
+        $provincia = Provincia::where('CODAUTO', $id)->get();
         return response()->json($provincia, JsonResponse::HTTP_OK);
     }
 
