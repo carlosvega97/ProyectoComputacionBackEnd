@@ -11,6 +11,7 @@ use App\Http\Controllers\ProvinciasController;
 use App\Http\Controllers\RestaurantesController;
 use App\Http\Controllers\UsuariosController;
 use App\Http\Controllers\ViviendasController;
+use App\Http\Controllers\PythonController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,3 +46,5 @@ Route::post('Usuarios/createUser', [UsuariosController::class, 'createUser']);
 
 Route::get('Provincias/showFromComunidad/{id}', [ProvinciasController::class, 'showFromComunidad']);
 Route::get('Municipios/showFromProvincia/{id}', [MunicipiosController::class, 'showFromProvincia']);
+Route::get('Python/processData', [PythonController::class, 'processData']);
+Route::get('Python/processDataSymfony', [PythonController::class, 'processDataSymfony']);
