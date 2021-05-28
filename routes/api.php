@@ -52,3 +52,4 @@ Route::get('Python/processDataSymfony', [PythonController::class, 'processDataSy
 
 Route::get('Busqueda/filtrarHospitalesMunicipio/{id}', [BusquedasController::class, 'filtrarHopitalesMunicipio']);
 Route::get('Busqueda/filtrarHospitalesProvincia/{id}', [BusquedasController::class, 'filtrarHopitalesProvincia']);
+Route::get('Busqueda/filtrarViviendasMunicipio/{id}', [BusquedasController::class, 'filtrarViviendasMunicipio']);

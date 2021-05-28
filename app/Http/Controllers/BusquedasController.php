@@ -6,6 +6,7 @@ use App\Models\Comunidad;
 use App\Models\Municipio;
 use App\Models\Provincia;
 use App\Models\Hospital;
+use App\Models\Vivienda;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -33,6 +34,18 @@ class BusquedasController extends Controller
     {
         $hospitales = Hospital::select('Nombre_Centro as titulo', 'Tipo_Vía', 'Nombre_Vía', 'Número_Vía', 'Clase_de_Centro', 'Dependencia_Funcional')->where('Cód_Provincia', $id)->get();
         return response()->json($hospitales, JsonResponse::HTTP_OK);
+    }
+
+    /**
+     * filtra las viviendas en alquiler de un municipio
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function filtrarViviendasMunicipio($id)
+    {
+        $viviendas = Vivienda::where('idMunicipio', $id)->get();
+        return response()->json($viviendas, JsonResponse::HTTP_OK);
     }
 
 }
