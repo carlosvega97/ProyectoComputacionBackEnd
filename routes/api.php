@@ -12,6 +12,7 @@ use App\Http\Controllers\RestaurantesController;
 use App\Http\Controllers\UsuariosController;
 use App\Http\Controllers\ViviendasController;
 use App\Http\Controllers\PythonController;
+use App\Http\Controllers\BusquedasController;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,3 +49,6 @@ Route::get('Provincias/showFromComunidad/{id}', [ProvinciasController::class, 's
 Route::get('Municipios/showFromProvincia/{id}', [MunicipiosController::class, 'showFromProvincia']);
 Route::get('Python/processData', [PythonController::class, 'processData']);
 Route::get('Python/processDataSymfony', [PythonController::class, 'processDataSymfony']);
+
+Route::get('Busqueda/filtrarHospitalesMunicipio/{id}', [BusquedasController::class, 'filtrarHopitalesMunicipio']);
+Route::get('Busqueda/filtrarHospitalesProvincia/{id}', [BusquedasController::class, 'filtrarHopitalesProvincia']);
