@@ -91,8 +91,9 @@ class UsuariosController extends Controller
     public function existeUsuario($usuario)
     {
         $existe = false;
+        $usuario = Usuario::where('correo', $usuario)->get();
         //Checkeamos un valor cualquiera por comprobar si existe
-        if(Usuario::where('correo', $usuario)->value('rol'))
+        if(count($usuario) == 1)
         {
             $existe = true;
         }
