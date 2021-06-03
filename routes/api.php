@@ -39,6 +39,7 @@ Route::resource('Provincias', ProvinciasController::class, ['only' =>['index', '
 Route::resource('Usuarios', UsuariosController::class, ['except' => ['destroy']]);
 Route::resource('Viviendas', ViviendasController::class, ['only' =>['index', 'show']]);
 
+Route::get('Municipios/getNombreMunicipios', [MunicipiosController::class, 'getMunicipiosNombre']);
 Route::get('Usuarios/existeUsuario/{usuario}', [UsuariosController::class, 'existeUsuario']);
 Route::get('Usuarios/checkPassword/{usuario}/{password}', [UsuariosController::class, 'checkPassword']);
 Route::get('Usuarios/isAdmin/{usuario}', [UsuariosController::class, 'isAdmin']);

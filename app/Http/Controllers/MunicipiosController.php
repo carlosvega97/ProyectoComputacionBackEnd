@@ -20,6 +20,12 @@ class MunicipiosController extends Controller
         return response()->json($municipios, JsonResponse::HTTP_OK);
     }
 
+    public function getMunicipiosNombre()
+    {
+        $municipios = Municipio::select('MUNICIPIO')->get();
+        return response()->json($municipios, JsonResponse::HTTP_OK);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -49,7 +55,7 @@ class MunicipiosController extends Controller
      */
     public function show($id)
     {
-        $municipio = Municipio::where('CODMUN', $id)->firstOrFail();
+        $municipio = Municipio::where('CODMU', $id)->firstOrFail();
         return response()->json($municipio, JsonResponse::HTTP_OK);
     }
 
