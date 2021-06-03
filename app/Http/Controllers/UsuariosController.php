@@ -54,6 +54,12 @@ class UsuariosController extends Controller
         return response()->json($usuario, JsonResponse::HTTP_OK);
     }
 
+    public function showFromUser($id)
+    {
+        $usuario = Usuario::where('idUsuario', $id)->get();
+        return response()->json($usuario, JsonResponse::HTTP_OK);
+    }
+
     /**
      * Show the form for editing the specified resource.
      *

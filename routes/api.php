@@ -44,6 +44,7 @@ Route::get('Usuarios/checkPassword/{usuario}/{password}', [UsuariosController::c
 Route::get('Usuarios/isAdmin/{usuario}', [UsuariosController::class, 'isAdmin']);
 
 Route::post('Usuarios/createUser', [UsuariosController::class, 'createUser']);
+Route::get('Usuarios/showFromUser/{id}', [UsuariosController::class, 'showFromUser']);
 
 Route::get('Provincias/showFromComunidad/{id}', [ProvinciasController::class, 'showFromComunidad']);
 Route::get('Municipios/showFromProvincia/{id}', [MunicipiosController::class, 'showFromProvincia']);
