@@ -8,20 +8,20 @@ use Illuminate\Database\Eloquent\Model;
 class Colegio extends Model
 {
     use HasFactory;
-
-
+    protected $table = 'colegios';
+    
     protected $fillable = [
         'idColegio',
         'idMunicipio',
-        'localidad',
+        'Localidad',
         'idProvincia',
-        'provincia',
-        'denomGenerica',
-        'denomEspesifica',
-        'naturaleza',
-        'domicilio',
-        'cPostal',
-        'telefono',
+        'Provincia',
+        'Denominación_genérica',
+        'Denominación_específica',
+        'Naturaleza',
+        'Domicilio',
+        'C_Postal',
+        'Teléfono',
     ];
 
 
