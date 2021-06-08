@@ -90,7 +90,7 @@ class ColegiosController extends Controller
             ]);
             return response()->json(JsonResponse::HTTP_OK);
         } catch (\Throwable $th) {
-            return response()->json(JsonResponse::HTTP_NOT_FOUND,);
+            return response()->json(JsonResponse::HTTP_NOT_FOUND);
         }
     }
 
@@ -102,6 +102,11 @@ class ColegiosController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            $colegio = Colegio::where('idColegio', $id)->delete();
+            return response()->json(JsonResponse::HTTP_OK);
+        } catch (\Throwable $th) {
+             return response()->json($th, JsonResponse::HTTP_NOT_FOUND);
+        }
     }
 }
