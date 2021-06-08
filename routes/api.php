@@ -29,7 +29,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::resource('Colegios', ColegiosController::class, ['only' =>['index', 'show']]);
+Route::resource('Colegios', ColegiosController::class, ['only' =>['index', 'show', 'update', 'destroy']]);
 Route::resource('Comunidades', ComunidadesController::class, ['only' =>['index', 'show']]);
 //Route::resource('Eventos', EventosController::class, ['only' =>['index', 'show']]);
 Route::resource('Hospitales', HospitalesController::class, ['only' =>['index', 'show']]);

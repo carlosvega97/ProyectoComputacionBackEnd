@@ -74,7 +74,24 @@ class ColegiosController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try {
+            $updateColegio = Colegio::where('idColegio', $id)->update([
+                'idColegio' => $request->idColegio,
+                'idMunicipio' => $request->idMunicipio,
+                'localidad' => $request->localidad,
+                'idProvincia' => $request->idProvincia,
+                'provincia' => $request->provincia,
+                'denomGenerica' => $request->denomGenerica,
+                'denomEspesifica' => $request->denomEspesifica,
+                'naturaleza' => $request->naturaleza,
+                'domicilio' => $request->domicilio,
+                'cPostal' => $request->cPostal,
+                'telefono' => $request->telefono,
+            ]);
+            return response()->json(JsonResponse::HTTP_OK);
+        } catch (\Throwable $th) {
+            return response()->json(JsonResponse::HTTP_NOT_FOUND,);
+        }
     }
 
     /**
