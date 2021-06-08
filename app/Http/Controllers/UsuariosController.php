@@ -54,6 +54,18 @@ class UsuariosController extends Controller
         return response()->json($usuario, JsonResponse::HTTP_OK);
     }
 
+    public function showFromUser($id)
+    {
+        $usuario = Usuario::where('idUsuario', $id)->get();
+        return response()->json($usuario, JsonResponse::HTTP_OK);
+    }
+
+    public function getIdFromCorreo($correo)
+    {
+        $usuario = Usuario::select('idUsuario')->where('correo', $correo)->firstOrFail();
+        return response()->json($usuario, JsonResponse::HTTP_OK);
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -91,8 +103,9 @@ class UsuariosController extends Controller
     public function existeUsuario($usuario)
     {
         $existe = false;
+        $usuario = Usuario::where('correo', $usuario)->get();
         //Checkeamos un valor cualquiera por comprobar si existe
-        if(Usuario::where('correo', $usuario)->value('rol'))
+        if(count($usuario) == 1)
         {
             $existe = true;
         }
