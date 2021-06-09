@@ -25,9 +25,13 @@ class ComunidadesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function createComunidad(Request $comunidad)
     {
-        //
+        return Comunidad::create([
+            'CODAUTO' => $comunidad->CODAUTO,
+            'AUTONOMIA' => $comunidad->AUTONOMIA,
+            'TEXTO_AUTONOMIA' => $comunidad->TEXTO_AUTONOMIA
+        ]);
     }
 
     /**

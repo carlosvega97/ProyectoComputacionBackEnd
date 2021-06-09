@@ -30,7 +30,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::resource('Colegios', ColegiosController::class, ['only' =>['index', 'show', 'update', 'destroy']]);
-Route::resource('Comunidades', ComunidadesController::class, ['only' =>['index', 'show']]);
+Route::resource('Comunidades', ComunidadesController::class, ['only' =>['index', 'show', 'destroy']]);
+Route::post('Comunidades/createComunidad', [ComunidadesController::class, 'createComunidad']);
+
 //Route::resource('Eventos', EventosController::class, ['only' =>['index', 'show']]);
 Route::resource('Hospitales', HospitalesController::class, ['only' =>['index', 'show']]);
 Route::resource('Municipios', MunicipiosController::class, ['only' =>['index', 'show']]);
