@@ -9,7 +9,6 @@ use Illuminate\Http\JsonResponse;
 
 class ComunidadesController extends Controller
 {
-    
     /**
      * Display a listing of the resource.
      *
@@ -20,7 +19,7 @@ class ComunidadesController extends Controller
         $comunidades = Comunidad::all();
         return response()->json($comunidades, JsonResponse::HTTP_OK);
     }
-//hola
+    //hola
     /**
      * Show the form for creating a new resource.
      *
@@ -85,6 +84,11 @@ class ComunidadesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try{
+            $comunidad = Comunidad::where('CODAUTO', $id)->delete();
+            return response()->json(JsonResponse::HTTP_OK);
+        } catch (\Throwable $th) {
+             return response()->json($th, JsonResponse::HTTP_NOT_FOUND);
+        }
     }
 }
