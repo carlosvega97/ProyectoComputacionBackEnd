@@ -12,6 +12,30 @@ use Illuminate\Http\Request;
 
 class BusquedasController extends Controller
 {
+
+    /**
+     * filtra todos los hopitales de la municipio
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function filtrarProvinciaFromMunicipio($id)
+    {
+        $provincias = Provincia::select('CODPROV', 'NOMBRE', 'CODAUTO')->where('CODAUTO', $id)->get();
+        return response()->json($provincias, JsonResponse::HTTP_OK);
+    }
+    /**
+     * filtra todos los hopitales de la municipio
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function filtrarMunicipiosFromProvincia($id)
+    {
+        $municipios = Municipio::select('CODMU', 'MUNICIPIO', 'CODPROV')->where('CODPROV', $id)->get();
+        return response()->json($municipios, JsonResponse::HTTP_OK);
+    }
+
     /**
      * filtra todos los hopitales de la municipio
      *

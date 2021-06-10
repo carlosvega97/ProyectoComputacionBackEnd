@@ -76,19 +76,28 @@ class ColegiosController extends Controller
     {
         try {
             $updateColegio = Colegio::where('idColegio', $id)->update([
-                'idColegio' => $request->idColegio,
-                'idMunicipio' => $request->idMunicipio,
-                'Localidad' => $request->Localidad,
-                'idProvincia' => $request->idProvincia,
-                'Provincia' => $request->Provincia,
-                'Denominación_genérica' => $request->Denominación_genérica,
-                'Denominación_específica' => $request->Denominación_específica,
-                'Naturaleza' => $request->Naturaleza,
-                'Domicilio' => $request->Domicilio,
-                'C_Postal' => $request->C_Postal,
-                'Teléfono' => $request->Teléfono
+                'Domicilio' => $request->Domicilio
             ]);
+            //$updateColegio->save();
             return response()->json(JsonResponse::HTTP_OK);
+        } catch (\Throwable $th) {
+            return response()->json($th, JsonResponse::HTTP_NOT_FOUND);
+        }
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function editar(Request $request, $id)
+    {
+        try {
+            $updateColegio = Colegio::where('idColegio', $id)->update($request->all());
+            //$updateColegio->save();
+            return response()->json($updateColegio, JsonResponse::HTTP_OK);
         } catch (\Throwable $th) {
             return response()->json($th, JsonResponse::HTTP_NOT_FOUND);
         }
