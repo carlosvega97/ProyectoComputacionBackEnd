@@ -7,12 +7,28 @@ use App\Models\Municipio;
 use App\Models\Provincia;
 use App\Models\Hospital;
 use App\Models\Vivienda;
+use App\Models\Colegio;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class BusquedasController extends Controller
 {
-
+    
+    /**
+     * filtra todos los colegios del municipio
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function filtrarColegiosFromMunicipio($id)
+    {
+        try {
+            $colegios = Colegio::select('idColegio', 'idMunicipio', 'Localidad', 'idProvincia', 'Provincia', 'Denominación_genérica', 'Denominación_específica', 'Naturaleza', 'Domicilio', 'C_Postal', 'Teléfono')->where('idMunicipio', $id)->get();
+            return response()->json($colegios, JsonResponse::HTTP_OK);
+        } catch (\Throwable $th) {
+            return response()->json($th, JsonResponse::HTTP_NOT_FOUND);
+        }
+    }
     /**
      * filtra todos los hopitales de la municipio
      *
