@@ -22,7 +22,7 @@ class BusquedasController extends Controller
     public function filtrarColegiosFromMunicipio($id)
     {
         try {
-            $colegios = Colegio::select('idColegio', 'idMunicipio', 'Localidad', 'idProvincia', 'Provincia', 'Denominación_genérica', 'Denominación_específica', 'Naturaleza', 'Domicilio', 'C_Postal', 'Teléfono')->where('idMunicipio', $id)->get();
+            $colegios = Colegio::select('idColegio', 'idMunicipio', 'Localidad', 'idProvincia', 'Provincia', 'Denominacion_generica', 'Denominacion_especifica', 'Naturaleza', 'Domicilio', 'C_Postal', 'Telefono')->where('idMunicipio', $id)->get();
             return response()->json($colegios, JsonResponse::HTTP_OK);
         } catch (\Throwable $th) {
             return response()->json($th, JsonResponse::HTTP_NOT_FOUND);
@@ -59,7 +59,7 @@ class BusquedasController extends Controller
      */
     public function filtrarHopitalesMunicipio($id)
     {
-        $hospitales = Hospital::select('Nombre_Centro as titulo', 'Tipo_Vía', 'Nombre_Vía', 'Número_Vía', 'Clase_de_Centro', 'Dependencia_Funcional')->where('Cód_Municipio', $id)->get();
+        $hospitales = Hospital::select('Nombre_Centro', 'Tipo_Via', 'Nombre_Via', 'Numero_Via', 'Clase_de_Centro', 'Dependencia_Funcional')->where('Cód_Municipio', $id)->get();
         return response()->json($hospitales, JsonResponse::HTTP_OK);
     }
 
@@ -71,7 +71,7 @@ class BusquedasController extends Controller
      */
     public function filtrarHopitalesProvincia($id)
     {
-        $hospitales = Hospital::select('Nombre_Centro as titulo', 'Tipo_Vía', 'Nombre_Vía', 'Número_Vía', 'Clase_de_Centro', 'Dependencia_Funcional')->where('Cód_Provincia', $id)->get();
+        $hospitales = Hospital::select('CODCNH', 'Nombre_Centro', 'Tipo_Via', 'Nombre_Via', 'Numero_Via', 'Clase_de_Centro', 'Dependencia_Funcional')->where('Cód_Provincia', $id)->get();
         return response()->json($hospitales, JsonResponse::HTTP_OK);
     }
 

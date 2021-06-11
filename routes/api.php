@@ -70,9 +70,9 @@ Route::get('Python/processDataSymfony', [PythonController::class, 'processDataSy
 
 //*****************     Busqueda     ******************/
 
-Route::get('Busqueda/filtrarHospitalesMunicipio/{id}', [BusquedasController::class, 'filtrarHopitalesMunicipio']);
-Route::get('Busqueda/filtrarHospitalesProvincia/{id}', [BusquedasController::class, 'filtrarHopitalesProvincia']);
-Route::get('Busqueda/filtrarViviendasMunicipio/{id}', [BusquedasController::class, 'filtrarViviendasMunicipio']);
+Route::get('Busqueda/filtrarHospitalesFromMunicipio/{id}', [BusquedasController::class, 'filtrarHopitalesMunicipio']);
+Route::get('Busqueda/filtrarHospitalesFromProvincia/{id}', [BusquedasController::class, 'filtrarHopitalesProvincia']);
+Route::get('Busqueda/filtrarViviendasFromMunicipio/{id}', [BusquedasController::class, 'filtrarViviendasMunicipio']);
 Route::get('Busqueda/filtrarColegiosFromMunicipio/{id}', [BusquedasController::class, 'filtrarColegiosFromMunicipio']);
 route::get('Buqueda/filtrarProvinciaFromMunicipio/{id}', [BusquedasController::class, 'filtrarProvinciaFromMunicipio']);
 route::get('Busqueda/filtrarMunicipiosFromProvincia/{id}', [BusquedasController::class, 'filtrarMunicipiosFromProvincia']);
