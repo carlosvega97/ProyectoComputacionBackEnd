@@ -25,20 +25,13 @@ class ProvinciasController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $provincia)
     {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+        return Municipio::create([
+            'CODPROV' => $provincia->CODPROV,
+            'NOMBRE' => $provincia->NOMBRE,
+            'CODAUTO' => $provincia->CODAUTO
+        ]); 
     }
 
     /**
@@ -66,17 +59,6 @@ class ProvinciasController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -85,7 +67,12 @@ class ProvinciasController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try {
+            $updateProvincia = Municipio::where('CODPROV', $id)->update($request->all());
+            return response()->json($updateProvincia, JsonResponse::HTTP_OK);
+        } catch (\Throwable $th) {
+            return response()->json($th, JsonResponse::HTTP_NOT_FOUND);
+        }
     }
 
     /**
@@ -96,6 +83,11 @@ class ProvinciasController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try{
+            $provincia = Municipio::where('CODPROV', $id)->delete();
+            return response()->json(JsonResponse::HTTP_OK);
+        } catch (\Throwable $th) {
+             return response()->json($th, JsonResponse::HTTP_NOT_FOUND);
+        }
     }
 }

@@ -10,7 +10,7 @@ use Illuminate\Http\JsonResponse;
 class ComunidadesController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * devuelve todos las comunidades existentes de la data base
      *
      * @return \Illuminate\Http\Response
      */
@@ -19,9 +19,8 @@ class ComunidadesController extends Controller
         $comunidades = Comunidad::all();
         return response()->json($comunidades, JsonResponse::HTTP_OK);
     }
-    //hola
     /**
-     * Show the form for creating a new resource.
+     * crea una nueva comunidad
      *
      * @return \Illuminate\Http\Response
      */
@@ -35,18 +34,7 @@ class ComunidadesController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
+     * devuelve solo una comunidad en espesifico
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -58,18 +46,7 @@ class ComunidadesController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
+     * Modifica un objeto en espesifico y lo actualiza en la base de datos
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
@@ -77,7 +54,12 @@ class ComunidadesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try {
+            $updateComunidad = Comunidad::where('CODAUTO', $id)->update($request->all());
+            return response()->json($updateComunidad, JsonResponse::HTTP_OK);
+        } catch (\Throwable $th) {
+            return response()->json($th, JsonResponse::HTTP_NOT_FOUND);
+        }
     }
 
     /**

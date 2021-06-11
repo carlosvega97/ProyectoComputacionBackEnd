@@ -36,22 +36,22 @@ Route::put('Colegios/editar/{id}', [ColegiosController::class, 'editar']);
 
 //*****************     Comunidad     ******************/
 
-Route::resource('Comunidades', ComunidadesController::class, ['only' =>['index', 'show', 'destroy']]);
+Route::resource('Comunidades', ComunidadesController::class, ['only' =>['index', 'show', 'destroy', 'update']]);
 Route::post('Comunidades/createComunidad', [ComunidadesController::class, 'createComunidad']);
 
 //*****************     Hospitales     ******************/
 
-Route::resource('Hospitales', HospitalesController::class, ['only' =>['index', 'show']]);
+Route::resource('Hospitales', HospitalesController::class, ['only' =>['index', 'show', 'create', 'update', 'destroy']]);
 
 //*****************     Municipios     ******************/
 
-Route::resource('Municipios', MunicipiosController::class, ['only' =>['index', 'show']]);
+Route::resource('Municipios', MunicipiosController::class, ['only' =>['index', 'show', 'create', 'update', 'destroy']]);
 Route::get('Municipios/showFromProvincia/{id}', [MunicipiosController::class, 'showFromProvincia']);
 Route::get('Municipios/getNombreMunicipios', [MunicipiosController::class, 'getMunicipiosNombre']);
 
 //*****************     Provincias     ******************/
 
-Route::resource('Provincias', ProvinciasController::class, ['only' =>['index', 'show']]);
+Route::resource('Provincias', ProvinciasController::class, ['only' =>['index', 'show', 'create', 'update', 'destroy']]);
 Route::get('Provincias/showFromComunidad/{id}', [ProvinciasController::class, 'showFromComunidad']);
 
 //*****************     Usuarios     ******************/

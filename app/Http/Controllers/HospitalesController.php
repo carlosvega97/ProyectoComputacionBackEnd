@@ -11,7 +11,7 @@ class HospitalesController extends Controller
 {
    
     /**
-     * Display a listing of the resource.
+     * devuelve todos los hospitales.
      *
      * @return \Illuminate\Http\Response
      */
@@ -22,24 +22,37 @@ class HospitalesController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Crea nuevos hospitales
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $hospital)
     {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+        return Hospital::create([
+            'CCN' => $hospital->CCN,
+            'Nombre_Centro' => $hospital->Nombre_Centro,
+            'Tipo_Via' => $hospital->Tipo_Via,
+            'Nombre_Via' => $hospital->Nombre_Via,
+            'Numero_Via' => $hospital->Numero_Via,
+            'Telefono_Principal' => $hospital->Telefono_Principal,
+            'Cod_Municipio' => $hospital->Cod_Municipio,
+            'Municipio' => $hospital->Municipio,
+            'Cod_Provincia' => $hospital->Cod_Provincia,
+            'Provincia' => $hospital->Provincia,
+            'Cod_CCAA' => $hospital->Cod_CCAA,
+            'CCAA' => $hospital->CCAA,
+            'Codigo_Postal' => $hospital->Codigo_Postal,
+            'CAMAS' => $hospital->CAMAS,
+            'Cod_Clase_de_Centro' => $hospital->Cod_Clase_de_Centro,
+            'Clase_de_Centro' => $hospital->Clase_de_Centro,
+            'Cod_Dep_Funcional' => $hospital->Cod_Dep_Funcional,
+            'Dependencia_Funcional' => $hospital->Dependencia_Funcional,
+            'Forma_parte_Complejo' => $hospital->Forma_parte_Complejo,
+            'CODIDCOM' => $hospital->CODIDCOM,
+            'Nombre_del_Complejo' => $hospital->Nombre_del_Complejo,
+            'ALTA' => $hospital->ALTA,
+            'Email' => $hospital->Email
+        ]);
     }
 
     /**
@@ -55,17 +68,6 @@ class HospitalesController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -74,7 +76,12 @@ class HospitalesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try {
+            $updateHospital = Hospital::where('CODCNH', $id)->update($request->all());
+            return response()->json($updateHospital, JsonResponse::HTTP_OK);
+        } catch (\Throwable $th) {
+            return response()->json($th, JsonResponse::HTTP_NOT_FOUND);
+        }
     }
 
     /**
@@ -85,6 +92,11 @@ class HospitalesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try{
+            $hospital = Hospital::where('CODCNH', $id)->delete();
+            return response()->json(JsonResponse::HTTP_OK);
+        } catch (\Throwable $th) {
+             return response()->json($th, JsonResponse::HTTP_NOT_FOUND);
+        }
     }
 }

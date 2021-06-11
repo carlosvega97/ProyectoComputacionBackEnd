@@ -10,7 +10,7 @@ use Illuminate\Http\JsonResponse;
 class MunicipiosController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * devuelve todos los municipios ordenados de forma acendente
      *
      * @return \Illuminate\Http\Response
      */
@@ -20,6 +20,11 @@ class MunicipiosController extends Controller
         return response()->json($municipios, JsonResponse::HTTP_OK);
     }
 
+     /**
+     * devuelve el nombre de todos los municipios
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function getMunicipiosNombre()
     {
         $municipios = Municipio::select('MUNICIPIO')->get();
@@ -27,24 +32,17 @@ class MunicipiosController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * crea un nuevo municipio
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $municipio)
     {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+        return Municipio::create([
+            'CODMU' => $municipio->CODMU,
+            'MUNICIPIO' => $municipio->MUNICIPIO,
+            'CODPROV' => $municipio->CODPROV
+        ]); 
     }
 
     /**
@@ -72,17 +70,6 @@ class MunicipiosController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -91,7 +78,12 @@ class MunicipiosController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try {
+            $updateMunicipio = Municipio::where('CODMU', $id)->update($request->all());
+            return response()->json($updateMunicipio, JsonResponse::HTTP_OK);
+        } catch (\Throwable $th) {
+            return response()->json($th, JsonResponse::HTTP_NOT_FOUND);
+        }
     }
 
     /**
@@ -102,6 +94,11 @@ class MunicipiosController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try{
+            $municipio = Municipio::where('CODMU', $id)->delete();
+            return response()->json(JsonResponse::HTTP_OK);
+        } catch (\Throwable $th) {
+             return response()->json($th, JsonResponse::HTTP_NOT_FOUND);
+        }
     }
 }
