@@ -24,36 +24,51 @@ use App\Http\Controllers\BusquedasController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+//Route::resource('Viviendas', ViviendasController::class, ['only' =>['index', 'show']]);
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+//*****************     colegios     ******************/
 
-Route::resource('Colegios', ColegiosController::class, ['only' =>['index', 'show', 'update', 'destroy']]);
+Route::resource('Colegios', ColegiosController::class, ['only' =>['index', 'show', 'destroy', 'create']]);
 Route::put('Colegios/editar/{id}', [ColegiosController::class, 'editar']);
+
+//*****************     Comunidad     ******************/
+
 Route::resource('Comunidades', ComunidadesController::class, ['only' =>['index', 'show', 'destroy']]);
 Route::post('Comunidades/createComunidad', [ComunidadesController::class, 'createComunidad']);
 
-//Route::resource('Eventos', EventosController::class, ['only' =>['index', 'show']]);
-Route::resource('Hospitales', HospitalesController::class, ['only' =>['index', 'show']]);
-Route::resource('Municipios', MunicipiosController::class, ['only' =>['index', 'show']]);
-Route::resource('Provincias', ProvinciasController::class, ['only' =>['index', 'show']]);
-//Route::resource('Restaurantes', RestaurantesController::class, ['only' =>['index', 'show']]);
-Route::resource('Usuarios', UsuariosController::class, ['except' => ['destroy']]);
-Route::resource('Viviendas', ViviendasController::class, ['only' =>['index', 'show']]);
+//*****************     Hospitales     ******************/
 
+Route::resource('Hospitales', HospitalesController::class, ['only' =>['index', 'show']]);
+
+//*****************     Municipios     ******************/
+
+Route::resource('Municipios', MunicipiosController::class, ['only' =>['index', 'show']]);
+Route::get('Municipios/showFromProvincia/{id}', [MunicipiosController::class, 'showFromProvincia']);
 Route::get('Municipios/getNombreMunicipios', [MunicipiosController::class, 'getMunicipiosNombre']);
+
+//*****************     Provincias     ******************/
+
+Route::resource('Provincias', ProvinciasController::class, ['only' =>['index', 'show']]);
+Route::get('Provincias/showFromComunidad/{id}', [ProvinciasController::class, 'showFromComunidad']);
+
+//*****************     Usuarios     ******************/
+
+Route::resource('Usuarios', UsuariosController::class, ['except' => ['destroy']]);
 Route::get('Usuarios/existeUsuario/{usuario}', [UsuariosController::class, 'existeUsuario']);
 Route::get('Usuarios/checkPassword/{usuario}/{password}', [UsuariosController::class, 'checkPassword']);
 Route::get('Usuarios/isAdmin/{usuario}', [UsuariosController::class, 'isAdmin']);
-
 Route::post('Usuarios/createUser', [UsuariosController::class, 'createUser']);
 Route::get('Usuarios/getIdFromCorreo/{correo}', [UsuariosController::class, 'getIdFromCorreo']);
 
-Route::get('Provincias/showFromComunidad/{id}', [ProvinciasController::class, 'showFromComunidad']);
-Route::get('Municipios/showFromProvincia/{id}', [MunicipiosController::class, 'showFromProvincia']);
+//*****************     Python     ******************/
+
 Route::get('Python/processData', [PythonController::class, 'processData']);
 Route::get('Python/processDataSymfony', [PythonController::class, 'processDataSymfony']);
+
+//*****************     Busqueda     ******************/
 
 Route::get('Busqueda/filtrarHospitalesMunicipio/{id}', [BusquedasController::class, 'filtrarHopitalesMunicipio']);
 Route::get('Busqueda/filtrarHospitalesProvincia/{id}', [BusquedasController::class, 'filtrarHopitalesProvincia']);

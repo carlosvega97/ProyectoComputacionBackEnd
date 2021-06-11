@@ -13,7 +13,6 @@ use Illuminate\Http\Request;
 
 class BusquedasController extends Controller
 {
-    
     /**
      * filtra todos los colegios del municipio
      *
