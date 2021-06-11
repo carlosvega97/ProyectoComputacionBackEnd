@@ -31,32 +31,32 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 //*****************     colegios     ******************/
 
-Route::resource('Colegios', ColegiosController::class, ['only' =>['index', 'show', 'destroy', 'create']]);
+Route::resource('Colegios', ColegiosController::class);
 Route::put('Colegios/editar/{id}', [ColegiosController::class, 'editar']);
 
 //*****************     Comunidad     ******************/
 
-Route::resource('Comunidades', ComunidadesController::class, ['only' =>['index', 'show', 'destroy', 'update']]);
+Route::resource('Comunidades', ComunidadesController::class);
 Route::post('Comunidades/createComunidad', [ComunidadesController::class, 'createComunidad']);
 
 //*****************     Hospitales     ******************/
 
-Route::resource('Hospitales', HospitalesController::class, ['only' =>['index', 'show', 'create', 'update', 'destroy']]);
+Route::resource('Hospitales', HospitalesController::class);
 
 //*****************     Municipios     ******************/
 
-Route::resource('Municipios', MunicipiosController::class, ['only' =>['index', 'show', 'create', 'update', 'destroy']]);
+Route::resource('Municipios', MunicipiosController::class);
 Route::get('Municipios/showFromProvincia/{id}', [MunicipiosController::class, 'showFromProvincia']);
 Route::get('Municipios/getNombreMunicipios', [MunicipiosController::class, 'getMunicipiosNombre']);
 
 //*****************     Provincias     ******************/
 
-Route::resource('Provincias', ProvinciasController::class, ['only' =>['index', 'show', 'create', 'update', 'destroy']]);
+Route::resource('Provincias', ProvinciasController::class);
 Route::get('Provincias/showFromComunidad/{id}', [ProvinciasController::class, 'showFromComunidad']);
 
 //*****************     Usuarios     ******************/
 
-Route::resource('Usuarios', UsuariosController::class, ['except' => ['destroy']]);
+Route::resource('Usuarios', UsuariosController::class);
 Route::get('Usuarios/existeUsuario/{usuario}', [UsuariosController::class, 'existeUsuario']);
 Route::get('Usuarios/checkPassword/{usuario}/{password}', [UsuariosController::class, 'checkPassword']);
 Route::get('Usuarios/isAdmin/{usuario}', [UsuariosController::class, 'isAdmin']);

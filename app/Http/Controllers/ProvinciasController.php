@@ -16,7 +16,7 @@ class ProvinciasController extends Controller
      */
     public function index()
     {
-        $provincias = Provincia::all();
+        $provincias = Provincia::select('CODPROV', 'NOMBRE', 'CODAUTO')->get();
         return response()->json($provincias, JsonResponse::HTTP_OK);
     }
 
@@ -42,7 +42,7 @@ class ProvinciasController extends Controller
      */
     public function show($id)
     {
-        $provincia = Provincia::where('CODPROV', $id)->firstOrFail();
+        $provincia = Provincia::select('CODPROV', 'NOMBRE', 'CODAUTO')->where('CODPROV', $id)->firstOrFail();
         return response()->json($provincia, JsonResponse::HTTP_OK);
     }
 
@@ -68,10 +68,10 @@ class ProvinciasController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            $updateProvincia = Municipio::where('CODPROV', $id)->update($request->all());
+            $updateProvincia = Provincia::where('CODPROV', $id)->update($request->all());
             return response()->json($updateProvincia, JsonResponse::HTTP_OK);
-        } catch (\Throwable $th) {
-            return response()->json($th, JsonResponse::HTTP_NOT_FOUND);
+        } catch (\Exception $e) {
+            return $e->getMessage()
         }
     }
 
@@ -84,10 +84,10 @@ class ProvinciasController extends Controller
     public function destroy($id)
     {
         try{
-            $provincia = Municipio::where('CODPROV', $id)->delete();
+            $provincia = Provincia::where('CODPROV', $id)->delete();
             return response()->json(JsonResponse::HTTP_OK);
-        } catch (\Throwable $th) {
-             return response()->json($th, JsonResponse::HTTP_NOT_FOUND);
+        } catch (\Exception $e) {
+             return $e->getMessage();
         }
     }
 }

@@ -61,7 +61,7 @@ class ColegiosController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function editar(Request $request, $id)
+    public function update(Request $request, $id)
     {
         try {
             $updateColegio = Colegio::where('idColegio', $id)->update($request->all());
@@ -83,8 +83,8 @@ class ColegiosController extends Controller
         try {
             $colegio = Colegio::where('idColegio', $id)->delete();
             return response()->json(JsonResponse::HTTP_OK);
-        } catch (\Throwable $th) {
-             return response()->json($th, JsonResponse::HTTP_NOT_FOUND);
+        } catch (\Exception $e) {
+             return $e->getMessage();
         }
     }
 

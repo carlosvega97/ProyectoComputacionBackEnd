@@ -16,7 +16,7 @@ class UsuariosController extends Controller
      */
     public function index()
     {
-        $usuarios = Usuario::all();
+        $usuarios = Usuario::select('idUsuario', 'nombre', 'apellido', 'correo', 'contrasena', 'idMunicipio', 'rol')->get();
         return response()->json($usuarios, JsonResponse::HTTP_OK);
     }
 
@@ -50,7 +50,7 @@ class UsuariosController extends Controller
     public function show($id)
     {
         try {
-            $usuario = Usuario::where('idUsuario', $id)->firstOrFail();
+            $usuario = Usuario::select('idUsuario', 'nombre', 'apellido', 'correo', 'contrasena', 'idMunicipio', 'rol')->where('idUsuario', $id)->firstOrFail();
         } catch (\Throwable $th) {
             return false;
         }
@@ -91,7 +91,12 @@ class UsuariosController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try {
+            $updateUsuario = Usuario::where('idUsuario', $id)->update($request->all());
+            return response()->json($updateUsuario, JsonResponse::HTTP_OK);
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
     }
 
     /**
@@ -102,7 +107,12 @@ class UsuariosController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try{
+            $usuario = Usuario::where('idUsuario', $id)->delete();
+            return response()->json(JsonResponse::HTTP_OK);
+        } catch (\Exception $e) {
+             return $e->getMessage();
+        }
     }
 
     public function existeUsuario($usuario)

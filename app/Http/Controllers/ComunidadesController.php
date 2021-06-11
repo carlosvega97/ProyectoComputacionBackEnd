@@ -73,8 +73,8 @@ class ComunidadesController extends Controller
         try{
             $comunidad = Comunidad::where('CODAUTO', $id)->delete();
             return response()->json(JsonResponse::HTTP_OK);
-        } catch (\Throwable $th) {
-             return response()->json($th, JsonResponse::HTTP_NOT_FOUND);
+        } catch (\Exception $e) {
+             return $e->getMessage()
         }
     }
 }

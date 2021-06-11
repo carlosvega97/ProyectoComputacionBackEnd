@@ -59,7 +59,7 @@ class BusquedasController extends Controller
      */
     public function filtrarHopitalesMunicipio($id)
     {
-        $hospitales = Hospital::select('Nombre_Centro', 'Tipo_Via', 'Nombre_Via', 'Numero_Via', 'Clase_de_Centro', 'Dependencia_Funcional')->where('Cód_Municipio', $id)->get();
+        $hospitales = Hospital::select('CODCNH', 'Nombre_Centro', 'Tipo_Via', 'Nombre_Via', 'Numero_Via', 'Clase_de_Centro', 'Dependencia_Funcional')->where('Cód_Municipio', $id)->get();
         return response()->json($hospitales, JsonResponse::HTTP_OK);
     }
 
