@@ -25,9 +25,9 @@ class ProvinciasController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $provincia)
+    public function store(Request $provincia)
     {
-        return Municipio::create([
+        return Provincia::create([
             'CODPROV' => $provincia->CODPROV,
             'NOMBRE' => $provincia->NOMBRE,
             'CODAUTO' => $provincia->CODAUTO
@@ -71,7 +71,7 @@ class ProvinciasController extends Controller
             $updateProvincia = Provincia::where('CODPROV', $id)->update($request->all());
             return response()->json($updateProvincia, JsonResponse::HTTP_OK);
         } catch (\Exception $e) {
-            return $e->getMessage()
+            return $e->getMessage();
         }
     }
 

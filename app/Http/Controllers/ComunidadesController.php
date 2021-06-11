@@ -16,7 +16,7 @@ class ComunidadesController extends Controller
      */
     public function index()
     {
-        $comunidades = Comunidad::all();
+        $comunidades = Comunidad::select('CODAUTO', 'AUTONOMIA', 'TEXTO_AUTONOMIA')->get();
         return response()->json($comunidades, JsonResponse::HTTP_OK);
     }
     /**
@@ -24,7 +24,7 @@ class ComunidadesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function createComunidad(Request $comunidad)
+    public function store(Request $comunidad)
     {
         return Comunidad::create([
             'CODAUTO' => $comunidad->CODAUTO,
@@ -41,7 +41,11 @@ class ComunidadesController extends Controller
      */
     public function show($id)
     {
-        $comunidad = Comunidad::where('CODAUTO', $id)->firstOrFail();;
+        try{
+            $comunidad = Comunidad::where('CODAUTO', $id)->firstOrFail();;
+        } catch (\Throwable $th) {
+            return false;
+        }
         return response()->json($comunidad, JsonResponse::HTTP_OK);
     }
 
@@ -74,7 +78,7 @@ class ComunidadesController extends Controller
             $comunidad = Comunidad::where('CODAUTO', $id)->delete();
             return response()->json(JsonResponse::HTTP_OK);
         } catch (\Exception $e) {
-             return $e->getMessage()
+             return $e->getMessage();
         }
     }
 }

@@ -16,7 +16,7 @@ class MunicipiosController extends Controller
      */
     public function index()
     {
-        $municipios = Municipio::orderBy('MUNICIPIO', 'asc')->get();
+        $municipios = Municipio::select('CODMU', 'MUNICIPIO', 'CODPROV')->orderBy('MUNICIPIO', 'asc')->get();
         return response()->json($municipios, JsonResponse::HTTP_OK);
     }
 
@@ -36,7 +36,7 @@ class MunicipiosController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $municipio)
+    public function store(Request $municipio)
     {
         return Municipio::create([
             'CODMU' => $municipio->CODMU,
@@ -53,7 +53,12 @@ class MunicipiosController extends Controller
      */
     public function show($id)
     {
-        $municipio = Municipio::where('CODMU', $id)->firstOrFail();
+        try {
+            $municipio = Municipio::where('CODMU', $id)->firstOrFail();
+        }
+        catch (\Throwable $e) {
+            return false;
+        }
         return response()->json($municipio, JsonResponse::HTTP_OK);
     }
 

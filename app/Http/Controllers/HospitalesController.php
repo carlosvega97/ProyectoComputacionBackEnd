@@ -17,7 +17,7 @@ class HospitalesController extends Controller
      */
     public function index()
     {
-        $hospitales = Hospital::all();
+        $hospitales = Hospital::select('CCN', 'CODCNH', 'Nombre_Centro', 'Tipo_Via', 'Nombre_Via', 'Numero_Via', 'Telefono_Principal', 'Cod_Municipio', 'Municipio', 'Cod_Provincia', 'Provincia', 'Cod_CCAA', 'CCAA', 'Codigo_Postal', 'CAMAS', 'Cod_Clase_de_Centro', 'Clase_de_Centro', 'Cod_Dep_Funcional', 'Dependencia_Funcional', 'Forma_parte_Complejo', 'CODIDCOM', 'Nombre_del_Complejo', 'ALTA', 'Email')->get();
         return response()->json($hospitales, JsonResponse::HTTP_OK);
     }
 
@@ -26,7 +26,7 @@ class HospitalesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $hospital)
+    public function store(Request $hospital)
     {
         return Hospital::create([
             'CCN' => $hospital->CCN,
@@ -35,11 +35,11 @@ class HospitalesController extends Controller
             'Nombre_Via' => $hospital->Nombre_Via,
             'Numero_Via' => $hospital->Numero_Via,
             'Telefono_Principal' => $hospital->Telefono_Principal,
-            'Cod_Municipio' => $hospital->Cód_Municipio,
+            'Cod_Municipio' => $hospital->Cod_Municipio,
             'Municipio' => $hospital->Municipio,
-            'Cod_Provincia' => $hospital->Cód_Provincia,
+            'Cod_Provincia' => $hospital->Cod_Provincia,
             'Provincia' => $hospital->Provincia,
-            'Cod_CCAA' => $hospital->Cód_CCAA,
+            'Cod_CCAA' => $hospital->Cod_CCAA,
             'CCAA' => $hospital->CCAA,
             'Codigo_Postal' => $hospital->Codigo_Postal,
             'CAMAS' => $hospital->CAMAS,
@@ -63,7 +63,11 @@ class HospitalesController extends Controller
      */
     public function show($id)
     {
-        $hospital = Hospital::where('CODCNH', $id)->firstOrFail();;
+        try{
+            $hospital = Hospital::where('CODCNH', $id)->firstOrFail();;
+        } catch (\Throwable $th) {
+            return false;
+        }
         return response()->json($hospital, JsonResponse::HTTP_OK);
     }
 
@@ -76,6 +80,7 @@ class HospitalesController extends Controller
      */
     public function update(Request $request, $id)
     {
+        dd($request);
         try {
             $updateHospital = Hospital::where('CODCNH', $id)->update($request->all());
             return response()->json($updateHospital, JsonResponse::HTTP_OK);

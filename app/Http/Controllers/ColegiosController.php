@@ -17,7 +17,7 @@ class ColegiosController extends Controller
      */
     public function index()
     {
-        $colegios = Colegio::all();
+        $colegios = Colegio::select('idColegio', 'idMunicipio', 'Localidad', 'idProvincia', 'Provincia', 'Denominacion_generica', 'Denominacion_especifica', 'Naturaleza', 'Domicilio', 'C_Postal', 'Telefono')->get();
         return response()->json($colegios, JsonResponse::HTTP_OK);
     }
 
@@ -26,7 +26,7 @@ class ColegiosController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $colegio)
+    public function store(Request $colegio)
     {
         return Colegio::create([
             'idMunicipio' => $colegio->idMunicipio,
@@ -50,7 +50,12 @@ class ColegiosController extends Controller
      */
     public function show($id)
     {
-        $colegio = Colegio::where('idColegio', $id)->firstOrFail();
+        try{
+            $colegio = Colegio::where('idColegio', $id)->firstOrFail();
+        } catch (\Throwable $th) {
+            return false;
+        }
+        
         return response()->json($colegio, JsonResponse::HTTP_OK);
     }
 
