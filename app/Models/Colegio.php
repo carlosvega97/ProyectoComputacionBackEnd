@@ -16,12 +16,12 @@ class Colegio extends Model
         'Localidad',
         'idProvincia',
         'Provincia',
-        'Denominación_genérica',
-        'Denominación_específica',
+        'Denominacion_generica',
+        'Denominacion_especifica',
         'Naturaleza',
         'Domicilio',
         'C_Postal',
-        'Teléfono',
+        'Telefono',
     ];
 
 

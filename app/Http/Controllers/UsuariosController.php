@@ -39,7 +39,6 @@ class UsuariosController extends Controller
     public function store(Request $request)
     {
         $usuario = Usuario::create(request()->all());
-        return $product;
     }
 
     /**
@@ -50,8 +49,14 @@ class UsuariosController extends Controller
      */
     public function show($id)
     {
-        $usuario = Usuario::where('idUsuario', $id)->firstOrFail();
+        try {
+            $usuario = Usuario::where('idUsuario', $id)->firstOrFail();
+        } catch (\Throwable $th) {
+            return false;
+        }
+        
         return response()->json($usuario, JsonResponse::HTTP_OK);
+        
     }
 
     public function showFromUser($id)
@@ -126,7 +131,7 @@ class UsuariosController extends Controller
     public function isAdmin($usuario)
     {
         $isAdmin = false;
-        if(Usuario::where('correo', $usuario)->value('rol') == 1)
+        if(Usuario::where('idUsuario', $usuario)->value('rol') == 1)
         {
             $isAdmin = true;
         }
