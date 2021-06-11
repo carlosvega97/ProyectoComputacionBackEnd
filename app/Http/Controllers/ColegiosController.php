@@ -22,24 +22,24 @@ class ColegiosController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * crea un nuevo colegio
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $colegio)
     {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+        return Colegio::create([
+            'idMunicipio' => $colegio->idMunicipio,
+            'Localidad' => $colegio->Localidad,
+            'idProvincia' => $colegio->idProvincia,
+            'Provincia' => $colegio->Provincia,
+            'Denominacion_generica' => $colegio->Denominacion_generica,
+            'Denominacion_especifica' => $colegio->Denominacion_especifica,
+            'Naturaleza' => $colegio->Naturaleza,
+            'Domicilio' => $colegio->Domicilio,
+            'C_Postal' => $colegio->C_Postal,
+            'Telefono' => $colegio->Telefono,
+        ]);
     }
 
     /**
@@ -52,37 +52,6 @@ class ColegiosController extends Controller
     {
         $colegio = Colegio::where('idColegio', $id)->firstOrFail();
         return response()->json($colegio, JsonResponse::HTTP_OK);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        try {
-            $updateColegio = Colegio::where('idColegio', $id)->update([
-                'Domicilio' => $request->Domicilio
-            ]);
-            //$updateColegio->save();
-            return response()->json(JsonResponse::HTTP_OK);
-        } catch (\Throwable $th) {
-            return response()->json($th, JsonResponse::HTTP_NOT_FOUND);
-        }
     }
 
     /**
@@ -118,4 +87,6 @@ class ColegiosController extends Controller
              return response()->json($th, JsonResponse::HTTP_NOT_FOUND);
         }
     }
+
+
 }
