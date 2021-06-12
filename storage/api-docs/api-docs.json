@@ -20,7 +20,8 @@
                 "tags": [
                     "Busqueda"
                 ],
-                "description": "filtra todos los colegios del municipio",
+                "description": "Muestra todos los colegios del municipio",
+                "operationId": "App\\Http\\Controllers\\BusquedasController::filtrarColegiosFromMunicipio",
                 "parameters": [
                     {
                         "name": "idMunicipio",
@@ -39,6 +40,266 @@
                     },
                     "404": {
                         "description": "No se han enocntrado colegios para el municipio dado"
+                    }
+                }
+            }
+        },
+        "/Busqueda/filtrarHospitalesFromMunicipio/{idMunicipio}": {
+            "get": {
+                "tags": [
+                    "Busqueda"
+                ],
+                "description": "Muestra todos los hospitales del municipio",
+                "operationId": "App\\Http\\Controllers\\BusquedasController::filtrarHopitalesMunicipio",
+                "parameters": [
+                    {
+                        "name": "idMunicipio",
+                        "in": "path",
+                        "description": "id del municipio en el que buscar hospitales",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Todos los hospitales del municipio"
+                    },
+                    "404": {
+                        "description": "No se han enocntrado hospitales para el municipio dado"
+                    }
+                }
+            }
+        },
+        "/Colegios": {
+            "get": {
+                "tags": [
+                    "Colegios"
+                ],
+                "description": "Muestra todos los colegios del municipio",
+                "operationId": "App\\Http\\Controllers\\ColegiosController::index",
+                "responses": {
+                    "200": {
+                        "description": "Todos los colegios"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Colegios"
+                ],
+                "description": "Crea un nuevo colegio en la base de datos",
+                "operationId": "store",
+                "requestBody": {
+                    "description": "Datos a ingresar en la base de datos",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "idColegio": {
+                                        "description": "ID del colegio a ingresar en la base de datos",
+                                        "type": "integer",
+                                        "format": "int64"
+                                    },
+                                    "idMunicipio": {
+                                        "description": "ID del municipio en el que se encuentra el colegio",
+                                        "type": "integer",
+                                        "format": "int64"
+                                    },
+                                    "Localidad": {
+                                        "description": "Nombre de la localidad en la que se encuentra el colegio",
+                                        "type": "string"
+                                    },
+                                    "idProvincia": {
+                                        "description": "ID de la provincia en la que se encuentra el colegio",
+                                        "type": "integer",
+                                        "format": "int64"
+                                    },
+                                    "Provincia": {
+                                        "description": "Nombre de la provincia en la que se encuentra el colegio",
+                                        "type": "string"
+                                    },
+                                    "Denominacion_generica": {
+                                        "description": "Colegio de educacion infantil, Centro privado de Secundaria, etc",
+                                        "type": "string"
+                                    },
+                                    "Denominacion_especifica": {
+                                        "description": "Nombre del centro",
+                                        "type": "string"
+                                    },
+                                    "Naturaleza": {
+                                        "description": "Centro privado o público",
+                                        "type": "string"
+                                    },
+                                    "Domicilio": {
+                                        "description": "Direccion en la que se encuentra el colegio",
+                                        "type": "string"
+                                    },
+                                    "C_Postal": {
+                                        "description": "Código postal del colegio",
+                                        "type": "integer",
+                                        "format": "int64"
+                                    },
+                                    "Telefono": {
+                                        "description": "Telefono del colegio",
+                                        "type": "integer",
+                                        "format": "int64"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "405": {
+                        "description": "Invalid input"
+                    }
+                }
+            }
+        },
+        "/Colegios/{idColegio}": {
+            "get": {
+                "tags": [
+                    "Colegios"
+                ],
+                "description": "Muestra la informacion del colegio ",
+                "operationId": "App\\Http\\Controllers\\ColegiosController::show",
+                "parameters": [
+                    {
+                        "name": "idColegio",
+                        "in": "path",
+                        "description": "id del colegio en el que buscar informacion",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Todos los colegios"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Colegios"
+                ],
+                "description": "Actualiza el colegio elegido en la base de datos",
+                "operationId": "update",
+                "parameters": [
+                    {
+                        "name": "idColegio",
+                        "in": "path",
+                        "description": "id del colegio a editar",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Datos a modificar en la base de datos",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "idColegio": {
+                                        "description": "ID del colegio a ingresar en la base de datos",
+                                        "type": "integer",
+                                        "format": "int64"
+                                    },
+                                    "idMunicipio": {
+                                        "description": "ID del municipio en el que se encuentra el colegio",
+                                        "type": "integer",
+                                        "format": "int64"
+                                    },
+                                    "Localidad": {
+                                        "description": "Nombre de la localidad en la que se encuentra el colegio",
+                                        "type": "string"
+                                    },
+                                    "idProvincia": {
+                                        "description": "ID de la provincia en la que se encuentra el colegio",
+                                        "type": "integer",
+                                        "format": "int64"
+                                    },
+                                    "Provincia": {
+                                        "description": "Nombre de la provincia en la que se encuentra el colegio",
+                                        "type": "string"
+                                    },
+                                    "Denominacion_generica": {
+                                        "description": "Colegio de educacion infantil, Centro privado de Secundaria, etc",
+                                        "type": "string"
+                                    },
+                                    "Denominacion_especifica": {
+                                        "description": "Nombre del centro",
+                                        "type": "string"
+                                    },
+                                    "Naturaleza": {
+                                        "description": "Centro privado o público",
+                                        "type": "string"
+                                    },
+                                    "Domicilio": {
+                                        "description": "Direccion en la que se encuentra el colegio",
+                                        "type": "string"
+                                    },
+                                    "C_Postal": {
+                                        "description": "Código postal del colegio",
+                                        "type": "integer",
+                                        "format": "int64"
+                                    },
+                                    "Telefono": {
+                                        "description": "Telefono del colegio",
+                                        "type": "integer",
+                                        "format": "int64"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "405": {
+                        "description": "Invalid input"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Colegios"
+                ],
+                "description": "Elimina el colegio elegido",
+                "operationId": "App\\Http\\Controllers\\ColegiosController::destroy",
+                "parameters": [
+                    {
+                        "name": "idColegio",
+                        "in": "path",
+                        "description": "id del colegio a eliminar",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Se ha eliminado correctamente"
+                    },
+                    "500": {
+                        "description": "Server Error"
                     }
                 }
             }

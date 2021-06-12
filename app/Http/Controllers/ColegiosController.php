@@ -36,25 +36,79 @@ class ColegiosController extends Controller
      *     description="Crea un nuevo colegio en la base de datos",
      *     operationId="store",
      *     @OA\Response(
-     *         response=405,
-     *         description="Invalid input"
+     *         response=200,
+     *         description="Colegio Agregado correctamente"
+     *     ),
+     *     @OA\Response(
+     *         response=500,
+     *         description="Ha ingresado uno o varios campos erroneamente o hay un problema con el servidor"
      *     ),
      *     @OA\RequestBody(
      *         description="Datos a ingresar en la base de datos",
      *         @OA\MediaType(
-     *             mediaType="application/x-www-form-urlencoded",
+     *             mediaType="application/json",
      *             @OA\Schema(
      *                 type="object",
      *                 @OA\Property(
-     *                     property="name",
-     *                     description="Updated name of the pet",
-     *                     type="string",
+     *                     property="idColegio",
+     *                     description="ID del colegio a ingresar en la base de datos",
+     *                     type="integer",
+     *                     format="int64"
      *                 ),
      *                 @OA\Property(
-     *                     property="status",
-     *                     description="Updated status of the pet",
+     *                     property="idMunicipio",
+     *                     description="ID del municipio en el que se encuentra el colegio",
+     *                     type="integer",
+     *                     format="int64"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="Localidad",
+     *                     description="Nombre de la localidad en la que se encuentra el colegio",
      *                     type="string"
-     *                 )
+     *                 ),
+     *                 @OA\Property(
+     *                     property="idProvincia",
+     *                     description="ID de la provincia en la que se encuentra el colegio",
+     *                     type="integer",
+     *                     format="int64"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="Provincia",
+     *                     description="Nombre de la provincia en la que se encuentra el colegio",
+     *                     type="string"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="Denominacion_generica",
+     *                     description="Colegio de educacion infantil, Centro privado de Secundaria, etc",
+     *                     type="string"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="Denominacion_especifica",
+     *                     description="Nombre del centro",
+     *                     type="string"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="Naturaleza",
+     *                     description="Centro privado o público",
+     *                     type="string"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="Domicilio",
+     *                     description="Direccion en la que se encuentra el colegio",
+     *                     type="string"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="C_Postal",
+     *                     description="Código postal del colegio",
+     *                     type="integer",
+     *                     format="int64"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="Telefono",
+     *                     description="Telefono del colegio",
+     *                     type="integer",
+     *                     format="int64"
+     *                 ),
      *             )
      *         )
      *     )
@@ -75,12 +129,7 @@ class ColegiosController extends Controller
             'Telefono' => $colegio->Telefono,
         ]);
 
-        if($colegio == 1){
-            return response() -> json($colegio, JsonResponse::HTTP_OK);
-        }
-        else{
-            return response() -> json($colegio, JsonResponse::HTTP_ERROR);
-        }
+        return response() -> json($colegio, JsonResponse::HTTP_OK);
     }
 
     /**
@@ -109,7 +158,7 @@ class ColegiosController extends Controller
     public function show($id)
     {
         $colegio = Colegio::where('idColegio', $id)->firstOrFail();
-        if(count($colegio) == 0){
+        if($colegio == null){
             return response()->json($colegio, JsonResponse::HTTP_NOT_FOUND);
         }
         else{
@@ -121,28 +170,134 @@ class ColegiosController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @OA\Put(
+     *     path="/Colegios/{idColegio}",
+     *     tags={"Colegios"},
+     *     description="Actualiza el colegio elegido en la base de datos",
+     *     operationId="update",
+     *     @OA\Response(
+     *         response=405,
+     *         description="Invalid input"
+     *     ),
+     *     @OA\Parameter(
+     *         name="idColegio",
+     *         in="path",
+     *         description="id del colegio a editar",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="integer",
+     *             format="int64"
+     *         )
+     *      ),
+     *     @OA\RequestBody(
+     *         description="Datos a modificar en la base de datos",
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 type="object",
+     *                 @OA\Property(
+     *                     property="idColegio",
+     *                     description="ID del colegio a ingresar en la base de datos",
+     *                     type="integer",
+     *                     format="int64"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="idMunicipio",
+     *                     description="ID del municipio en el que se encuentra el colegio",
+     *                     type="integer",
+     *                     format="int64"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="Localidad",
+     *                     description="Nombre de la localidad en la que se encuentra el colegio",
+     *                     type="string"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="idProvincia",
+     *                     description="ID de la provincia en la que se encuentra el colegio",
+     *                     type="integer",
+     *                     format="int64"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="Provincia",
+     *                     description="Nombre de la provincia en la que se encuentra el colegio",
+     *                     type="string"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="Denominacion_generica",
+     *                     description="Colegio de educacion infantil, Centro privado de Secundaria, etc",
+     *                     type="string"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="Denominacion_especifica",
+     *                     description="Nombre del centro",
+     *                     type="string"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="Naturaleza",
+     *                     description="Centro privado o público",
+     *                     type="string"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="Domicilio",
+     *                     description="Direccion en la que se encuentra el colegio",
+     *                     type="string"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="C_Postal",
+     *                     description="Código postal del colegio",
+     *                     type="integer",
+     *                     format="int64"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="Telefono",
+     *                     description="Telefono del colegio",
+     *                     type="integer",
+     *                     format="int64"
+     *                 ),
+     *             )
+     *         )
+     *     )
+     * )
      */
     public function update(Request $request, $id)
     {
-        try {
-            $updateColegio = Colegio::where('idColegio', $id)->update($request->all());
-            //$updateColegio->save();
+        $updateColegio = Colegio::where('idColegio', $id)->update($request->all());
+        if($updateColegio == 1){
             return response()->json($updateColegio, JsonResponse::HTTP_OK);
-        } catch (\Throwable $th) {
-            return response()->json($th, JsonResponse::HTTP_NOT_FOUND);
         }
+
+        else{
+            return response()->json($updateColegio, JsonResponse::HTTP_NOT_FOUND);
+        }
+        
+        //$updateColegio->save();
+        
+        
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @OA\Delete(
+     *     path="/Colegios/{idColegio}",
+     *     description="Elimina el colegio elegido",
+     *     tags={"Colegios"},
+     *     @OA\Response(
+     *          response="200", description="Se ha eliminado correctamente"
+     *      ),
+     *      @OA\Response(
+     *          response="500", description="Server Error"
+     *      ),
+     *      @OA\Parameter(
+     *         name="idColegio",
+     *         in="path",
+     *         description="id del colegio a eliminar",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="integer",
+     *             format="int64"
+     *         )
+     *      )
+     * )
      */
     public function destroy($id)
     {
