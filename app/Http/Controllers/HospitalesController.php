@@ -80,12 +80,12 @@ class HospitalesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        dd($request);
         try {
             $updateHospital = Hospital::where('CODCNH', $id)->update($request->all());
             return response()->json($updateHospital, JsonResponse::HTTP_OK);
-        } catch (\Throwable $th) {
-            return response()->json($th, JsonResponse::HTTP_NOT_FOUND);
+        } catch (\Exception $e) {
+            return $e -> getMessage();
+            
         }
     }
 

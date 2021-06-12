@@ -13,49 +13,69 @@ use Illuminate\Http\Request;
 
 class BusquedasController extends Controller
 {
+
+    
     /**
-     * filtra todos los colegios del municipio
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @OA\Get(
+     *     path="/Busqueda/filtrarColegiosFromMunicipio/{idMunicipio}",
+     *     description="Muestra todos los colegios del municipio",
+     *     tags={"Busqueda"},
+     *     @OA\Response(
+     *          response="200", description="Todos los colegios del municipio"
+     *      ),
+     *     @OA\Response(
+     *          response="404", description="No se han enocntrado colegios para el municipio dado"
+     *      ),
+     * 
+     *      @OA\Parameter(
+     *         name="idMunicipio",
+     *         in="path",
+     *         description="id del municipio en el que buscar colegios",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="integer",
+     *             format="int64"
+     *         )
+     *      )
+     * )
      */
     public function filtrarColegiosFromMunicipio($id)
     {
-        try {
-            $colegios = Colegio::select('idColegio', 'idMunicipio', 'Localidad', 'idProvincia', 'Provincia', 'Denominacion_generica', 'Denominacion_especifica', 'Naturaleza', 'Domicilio', 'C_Postal', 'Telefono')->where('idMunicipio', $id)->get();
-            return response()->json($colegios, JsonResponse::HTTP_OK);
-        } catch (\Throwable $th) {
-            return response()->json($th, JsonResponse::HTTP_NOT_FOUND);
-        }
-    }
-    /**
-     * filtra todos los hopitales de la municipio
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function filtrarProvinciaFromMunicipio($id)
-    {
-        $provincias = Provincia::select('CODPROV', 'NOMBRE', 'CODAUTO')->where('CODAUTO', $id)->get();
-        return response()->json($provincias, JsonResponse::HTTP_OK);
-    }
-    /**
-     * filtra todos los hopitales de la municipio
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function filtrarMunicipiosFromProvincia($id)
-    {
-        $municipios = Municipio::select('CODMU', 'MUNICIPIO', 'CODPROV')->where('CODPROV', $id)->get();
-        return response()->json($municipios, JsonResponse::HTTP_OK);
-    }
+        $colegios = Colegio::select('idColegio', 'idMunicipio', 'Localidad', 'idProvincia', 'Provincia', 'Denominacion_generica', 'Denominacion_especifica', 'Naturaleza', 'Domicilio', 'C_Postal', 'Telefono')->where('idMunicipio', $id)->get();
 
+        if(count($colegios) == 0){
+            return response()->json($colegios, JsonResponse::HTTP_NOT_FOUND);
+        }
+        else{
+            return response()->json($colegios, JsonResponse::HTTP_OK);
+        }
+            
+    }
+    
+    
     /**
-     * filtra todos los hopitales de la municipio
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @OA\Get(
+     *     path="/Busqueda/filtrarHospitalesFromMunicipio/{idMunicipio}",
+     *     description="Muestra todos los hospitales del municipio",
+     *     tags={"Busqueda"},
+     *     @OA\Response(
+     *          response="200", description="Todos los hospitales del municipio"
+     *      ),
+     *     @OA\Response(
+     *          response="404", description="No se han enocntrado hospitales para el municipio dado"
+     *      ),
+     * 
+     *      @OA\Parameter(
+     *         name="idMunicipio",
+     *         in="path",
+     *         description="id del municipio en el que buscar hospitales",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="integer",
+     *             format="int64"
+     *         )
+     *      )
+     * )
      */
     public function filtrarHopitalesMunicipio($id)
     {

@@ -1,0 +1,80 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API VIDA",
+        "description": "API para la aplicación VIDA",
+        "contact": {
+            "email": "asd@asd.asd"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8000/api",
+            "description": "Server API VIDA"
+        }
+    ],
+    "paths": {
+        "/Busqueda/filtrarColegiosFromMunicipio/{idMunicipio}": {
+            "get": {
+                "tags": [
+                    "Busqueda"
+                ],
+                "description": "filtra todos los colegios del municipio",
+                "parameters": [
+                    {
+                        "name": "idMunicipio",
+                        "in": "path",
+                        "description": "id del municipio en el que buscar colegios",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Todos los colegios del municipio"
+                    },
+                    "404": {
+                        "description": "No se han enocntrado colegios para el municipio dado"
+                    }
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Usuarios",
+            "description": "Acceso a informacion sobre los usuarios"
+        },
+        {
+            "name": "Municipios",
+            "description": "Acceso a información sobre los municipios"
+        },
+        {
+            "name": "Provincias",
+            "description": "Acceso a información sobre los provincias"
+        },
+        {
+            "name": "Comunidades",
+            "description": "Acceso a información sobre los comunidades"
+        },
+        {
+            "name": "Hospitales",
+            "description": "Acceso a información sobre los hospitales"
+        },
+        {
+            "name": "Colegios",
+            "description": "Acceso a información sobre los colegios"
+        },
+        {
+            "name": "Busqueda",
+            "description": "Acceso a información sobre los colegios"
+        }
+    ],
+    "security": [
+        []
+    ]
+}

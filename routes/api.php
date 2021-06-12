@@ -14,6 +14,13 @@ use App\Http\Controllers\ViviendasController;
 use App\Http\Controllers\PythonController;
 use App\Http\Controllers\BusquedasController;
 
+
+/**
+* @OA\Info(title="API VIDA", version="1.0")
+*
+* @OA\Server(url="http://localhost:8000")
+*/
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
