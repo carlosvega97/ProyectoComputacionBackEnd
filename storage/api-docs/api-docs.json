@@ -78,8 +78,8 @@
                 "tags": [
                     "Colegios"
                 ],
-                "description": "Muestra todos los colegios del municipio",
-                "operationId": "App\\Http\\Controllers\\ColegiosController::index",
+                "description": "Muestra todos los colegios",
+                "operationId": "index",
                 "responses": {
                     "200": {
                         "description": "Todos los colegios"
@@ -157,8 +157,11 @@
                     }
                 },
                 "responses": {
-                    "405": {
-                        "description": "Invalid input"
+                    "200": {
+                        "description": "Colegio agregado correctamente"
+                    },
+                    "500": {
+                        "description": "Ha ingresado uno o varios campos erroneamente o hay un problema con el servidor"
                     }
                 }
             }
@@ -174,7 +177,7 @@
                     {
                         "name": "idColegio",
                         "in": "path",
-                        "description": "id del colegio en el que buscar informacion",
+                        "description": "ID del colegio en el que buscar informacion",
                         "required": true,
                         "schema": {
                             "type": "integer",
@@ -184,7 +187,10 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Todos los colegios"
+                        "description": "Muestra informacion del colegio"
+                    },
+                    "404": {
+                        "description": "No se ha encontrado el colegio"
                     },
                     "500": {
                         "description": "Server Error"
@@ -271,8 +277,11 @@
                     }
                 },
                 "responses": {
-                    "405": {
-                        "description": "Invalid input"
+                    "200": {
+                        "description": "Se ha modificado el colegio correctamente"
+                    },
+                    "500": {
+                        "description": "Ha ingresado uno o varios campos erroneamente o hay un problema con el servidor"
                     }
                 }
             },
@@ -297,6 +306,788 @@
                 "responses": {
                     "200": {
                         "description": "Se ha eliminado correctamente"
+                    },
+                    "404": {
+                        "description": "No se ha encontrado el colegio con el ID seleccionado"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    }
+                }
+            }
+        },
+        "/Hospitales": {
+            "get": {
+                "tags": [
+                    "Hospitales"
+                ],
+                "description": "Muestra todos los hospitales",
+                "operationId": "index",
+                "responses": {
+                    "200": {
+                        "description": "Todos los hospitales"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Hospitales"
+                ],
+                "description": "Crea un nuevo hospital en la base de datos",
+                "operationId": "store",
+                "requestBody": {
+                    "description": "Datos a ingresar en la base de datos",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "CCN": {
+                                        "description": "Segundo id del hospital a ingresar en la base de datos",
+                                        "type": "integer",
+                                        "format": "int64"
+                                    },
+                                    "CODCNH": {
+                                        "description": "ID del hospital a ingresar en la base de datos",
+                                        "type": "integer",
+                                        "format": "int64"
+                                    },
+                                    "Nombre_Centro": {
+                                        "description": "Nombre del hospital",
+                                        "type": "string"
+                                    },
+                                    "Tipo_Via": {
+                                        "description": "Tipo de via en la que se encuentra el hospital: calle, avenida, paseo, etc",
+                                        "type": "string"
+                                    },
+                                    "Nombre_Via": {
+                                        "description": "Nombre de la via en la que se encuentra el hospital",
+                                        "type": "string"
+                                    },
+                                    "Numero_Via": {
+                                        "description": "Numero de la via en la que se encuentra el hospital",
+                                        "type": "integer",
+                                        "format": "int64"
+                                    },
+                                    "Telefono_Principal": {
+                                        "description": "Numero de telefono del hospital",
+                                        "type": "integer",
+                                        "format": "int64"
+                                    },
+                                    "Cod_Municipio": {
+                                        "description": "Codigo del municipio en el que se encuentra el hospital",
+                                        "type": "integer",
+                                        "format": "int64"
+                                    },
+                                    "Municipio": {
+                                        "description": "Nombre del municipio en el que se encuentra el hospital",
+                                        "type": "string"
+                                    },
+                                    "Cod_Provincia": {
+                                        "description": "codigo de la provincia en la que se encuentra el hospital",
+                                        "type": "integer",
+                                        "format": "int64"
+                                    },
+                                    "Provincia": {
+                                        "description": "Nombre de la provincia en la que se encuentra el hospital",
+                                        "type": "string"
+                                    },
+                                    "Cod_CCAA": {
+                                        "description": "codigo de la comunidad autonoma en la que se encuentra el hospital",
+                                        "type": "integer",
+                                        "format": "int64"
+                                    },
+                                    "CCAA": {
+                                        "description": "Nombre de la comunidad autonoma en la que se encuentra el hospital",
+                                        "type": "string"
+                                    },
+                                    "Codigo_Postal": {
+                                        "description": "Codigo postal del hospital",
+                                        "type": "integer",
+                                        "format": "int64"
+                                    },
+                                    "CAMAS": {
+                                        "description": "Numero de camas de las que dispone el hospital",
+                                        "type": "integer",
+                                        "format": "int64"
+                                    },
+                                    "Cod_Clase_de_Centro": {
+                                        "description": "Código clase de hospital",
+                                        "type": "integer",
+                                        "format": "int64"
+                                    },
+                                    "Clase_de_Centro": {
+                                        "description": "Clase de hospital",
+                                        "type": "string"
+                                    },
+                                    "Cod_Dep_Funcional": {
+                                        "description": "Codigo de la dependencia funcional del hospital",
+                                        "type": "integer",
+                                        "format": "int64"
+                                    },
+                                    "Dependencia_Funcional": {
+                                        "description": "Dependencia funcional del hospital",
+                                        "type": "string"
+                                    },
+                                    "Forma_parte_Complejo": {
+                                        "description": "Forma parte de un complejo: S o N",
+                                        "type": "string"
+                                    },
+                                    "CODIDCOM": {
+                                        "description": "ID del complejo en el que se encuentra el hospital",
+                                        "type": "integer",
+                                        "format": "int64"
+                                    },
+                                    "Nombre_del_Complejo": {
+                                        "description": "Nombre del complejo en el que se encuentra el hospital",
+                                        "type": "string"
+                                    },
+                                    "ALTA": {
+                                        "description": "ALTA",
+                                        "type": "string"
+                                    },
+                                    "Email": {
+                                        "description": "Direccion de correo electronico del colegio",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Hospital agregado correctamente"
+                    },
+                    "500": {
+                        "description": "Ha ingresado uno o varios campos erroneamente o hay un problema con el servidor"
+                    }
+                }
+            }
+        },
+        "/Hospitales/{idHospital}": {
+            "get": {
+                "tags": [
+                    "Hospitales"
+                ],
+                "description": "Muestra la informacion del hospital ",
+                "operationId": "App\\Http\\Controllers\\HospitalesController::show",
+                "parameters": [
+                    {
+                        "name": "idHospital",
+                        "in": "path",
+                        "description": "ID del hospital en el que buscar informacion",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Muestra informacion del hospital"
+                    },
+                    "404": {
+                        "description": "No se ha encontrado el hospital"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Hospitales"
+                ],
+                "description": "Modifica un hospital en la base de datos",
+                "operationId": "store",
+                "parameters": [
+                    {
+                        "name": "idHospital",
+                        "in": "path",
+                        "description": "ID del hospital a modificar",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Datos a modificar en la base de datos",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "CCN": {
+                                        "description": "Segundo id del hospital a ingresar en la base de datos",
+                                        "type": "integer",
+                                        "format": "int64"
+                                    },
+                                    "CODCNH": {
+                                        "description": "ID del hospital a ingresar en la base de datos",
+                                        "type": "integer",
+                                        "format": "int64"
+                                    },
+                                    "Nombre_Centro": {
+                                        "description": "Nombre del hospital",
+                                        "type": "string"
+                                    },
+                                    "Tipo_Via": {
+                                        "description": "Tipo de via en la que se encuentra el hospital: calle, avenida, paseo, etc",
+                                        "type": "string"
+                                    },
+                                    "Nombre_Via": {
+                                        "description": "Nombre de la via en la que se encuentra el hospital",
+                                        "type": "string"
+                                    },
+                                    "Numero_Via": {
+                                        "description": "Numero de la via en la que se encuentra el hospital",
+                                        "type": "integer",
+                                        "format": "int64"
+                                    },
+                                    "Telefono_Principal": {
+                                        "description": "Numero de telefono del hospital",
+                                        "type": "integer",
+                                        "format": "int64"
+                                    },
+                                    "Cod_Municipio": {
+                                        "description": "Codigo del municipio en el que se encuentra el hospital",
+                                        "type": "integer",
+                                        "format": "int64"
+                                    },
+                                    "Municipio": {
+                                        "description": "Nombre del municipio en el que se encuentra el hospital",
+                                        "type": "string"
+                                    },
+                                    "Cod_Provincia": {
+                                        "description": "codigo de la provincia en la que se encuentra el hospital",
+                                        "type": "integer",
+                                        "format": "int64"
+                                    },
+                                    "Provincia": {
+                                        "description": "Nombre de la provincia en la que se encuentra el hospital",
+                                        "type": "string"
+                                    },
+                                    "Cod_CCAA": {
+                                        "description": "codigo de la comunidad autonoma en la que se encuentra el hospital",
+                                        "type": "integer",
+                                        "format": "int64"
+                                    },
+                                    "CCAA": {
+                                        "description": "Nombre de la comunidad autonoma en la que se encuentra el hospital",
+                                        "type": "string"
+                                    },
+                                    "Codigo_Postal": {
+                                        "description": "Codigo postal del hospital",
+                                        "type": "integer",
+                                        "format": "int64"
+                                    },
+                                    "CAMAS": {
+                                        "description": "Numero de camas de las que dispone el hospital",
+                                        "type": "integer",
+                                        "format": "int64"
+                                    },
+                                    "Cod_Clase_de_Centro": {
+                                        "description": "Código clase de hospital",
+                                        "type": "integer",
+                                        "format": "int64"
+                                    },
+                                    "Clase_de_Centro": {
+                                        "description": "Clase de hospital",
+                                        "type": "string"
+                                    },
+                                    "Cod_Dep_Funcional": {
+                                        "description": "Codigo de la dependencia funcional del hospital",
+                                        "type": "integer",
+                                        "format": "int64"
+                                    },
+                                    "Dependencia_Funcional": {
+                                        "description": "Dependencia funcional del hospital",
+                                        "type": "string"
+                                    },
+                                    "Forma_parte_Complejo": {
+                                        "description": "Forma parte de un complejo: S o N",
+                                        "type": "string"
+                                    },
+                                    "CODIDCOM": {
+                                        "description": "ID del complejo en el que se encuentra el hospital",
+                                        "type": "integer",
+                                        "format": "int64"
+                                    },
+                                    "Nombre_del_Complejo": {
+                                        "description": "Nombre del complejo en el que se encuentra el hospital",
+                                        "type": "string"
+                                    },
+                                    "ALTA": {
+                                        "description": "ALTA",
+                                        "type": "string"
+                                    },
+                                    "Email": {
+                                        "description": "Direccion de correo electronico del colegio",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Hospital modificado correctamente"
+                    },
+                    "500": {
+                        "description": "Ha ingresado uno o varios campos erroneamente o hay un problema con el servidor"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Hospitales"
+                ],
+                "description": "Elimina el hospital elegido",
+                "operationId": "App\\Http\\Controllers\\HospitalesController::destroy",
+                "parameters": [
+                    {
+                        "name": "idHospital",
+                        "in": "path",
+                        "description": "id del hospital a eliminar",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Se ha eliminado correctamente"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    }
+                }
+            }
+        },
+        "/Municipios": {
+            "get": {
+                "tags": [
+                    "Municipios"
+                ],
+                "description": "Muestra todos los municipios",
+                "operationId": "index",
+                "responses": {
+                    "200": {
+                        "description": "Todos los municipios"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Municipios"
+                ],
+                "description": "Crea un nuevo municipios en la base de datos",
+                "operationId": "store",
+                "requestBody": {
+                    "description": "Datos a ingresar en la base de datos",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "CODMU": {
+                                        "description": "ID del municipio a ingresar en la base de datos",
+                                        "type": "integer",
+                                        "format": "int64"
+                                    },
+                                    "NOMBRE": {
+                                        "description": "Nombre del municipio",
+                                        "type": "string"
+                                    },
+                                    "CODPROV": {
+                                        "description": "ID de la provincia a la que pertenece",
+                                        "type": "integer",
+                                        "format": "int64"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Municipio agregado correctamente"
+                    },
+                    "500": {
+                        "description": "Ha ingresado uno o varios campos erroneamente o hay un problema con el servidor"
+                    }
+                }
+            }
+        },
+        "/getNombreMunicipios": {
+            "get": {
+                "tags": [
+                    "Municipios"
+                ],
+                "description": "Muestra el nombre de todos municipios",
+                "operationId": "getMunicipiosNombre",
+                "responses": {
+                    "200": {
+                        "description": "Todos los nombres de los municipios"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    }
+                }
+            }
+        },
+        "/Municipios/{idMunicipio}": {
+            "get": {
+                "tags": [
+                    "Municipios"
+                ],
+                "description": "Muestra la informacion del municipio",
+                "operationId": "App\\Http\\Controllers\\MunicipiosController::show",
+                "parameters": [
+                    {
+                        "name": "idMunicipio",
+                        "in": "path",
+                        "description": "id del municipio en el que buscar informacion",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Muestra la informacion del municipio"
+                    },
+                    "404": {
+                        "description": "No se ha encontrado el municipio"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Municipios"
+                ],
+                "description": "modifica un municipio en la base de datos",
+                "operationId": "store",
+                "parameters": [
+                    {
+                        "name": "idMunicipio",
+                        "in": "path",
+                        "description": "id del municipio a modificar",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Datos a ingresar en la base de datos",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "CODMU": {
+                                        "description": "ID del municipio a ingresar en la base de datos",
+                                        "type": "integer",
+                                        "format": "int64"
+                                    },
+                                    "NOMBRE": {
+                                        "description": "Nombre del municipio",
+                                        "type": "string"
+                                    },
+                                    "CODPROV": {
+                                        "description": "ID de la provincia a la que pertenece",
+                                        "type": "integer",
+                                        "format": "int64"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Municipio modificado correctamente"
+                    },
+                    "500": {
+                        "description": "Ha ingresado uno o varios campos erroneamente o hay un problema con el servidor"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Municipios"
+                ],
+                "description": "Elimina el municipio elegido",
+                "operationId": "App\\Http\\Controllers\\MunicipiosController::destroy",
+                "parameters": [
+                    {
+                        "name": "idMunicipio",
+                        "in": "path",
+                        "description": "id del municipio a eliminar",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Se ha eliminado correctamente"
+                    },
+                    "404": {
+                        "description": "No se ha encontrado el colegio con el ID seleccionado"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    }
+                }
+            }
+        },
+        "/Municipios/showFromProvincia/{idProvincia}": {
+            "get": {
+                "tags": [
+                    "Municipios"
+                ],
+                "description": "Muestra la informacion de los municipios que pertenecen a la provincia elegida",
+                "operationId": "App\\Http\\Controllers\\MunicipiosController::showFromProvincia",
+                "parameters": [
+                    {
+                        "name": "idProvincia",
+                        "in": "path",
+                        "description": "id de la provincia en la que buscar municipios",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Muestra la informacion de los municipios de la provincia"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    }
+                }
+            }
+        },
+        "/Provincias": {
+            "get": {
+                "tags": [
+                    "Provincias"
+                ],
+                "description": "Muestra todas las provincias",
+                "operationId": "App\\Http\\Controllers\\ProvinciasController::index",
+                "responses": {
+                    "200": {
+                        "description": "Todas las provincias"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Provincias"
+                ],
+                "description": "Crea una nueva provincia en la base de datos",
+                "operationId": "store",
+                "requestBody": {
+                    "description": "Datos a ingresar en la base de datos",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "CODPROV": {
+                                        "description": "ID de la provincia a ingresar en la base de datos",
+                                        "type": "integer",
+                                        "format": "int64"
+                                    },
+                                    "NOMBRE": {
+                                        "description": "Nombre de la provincia",
+                                        "type": "string"
+                                    },
+                                    "CODAUTO": {
+                                        "description": "Codigo de la comunidad autonoma a la que pertenece",
+                                        "type": "integer",
+                                        "format": "int64"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Provincia agregada correctamente"
+                    },
+                    "500": {
+                        "description": "Ha ingresado uno o varios campos erroneamente o hay un problema con el servidor"
+                    }
+                }
+            }
+        },
+        "/Provincias/{idProvincia}": {
+            "get": {
+                "tags": [
+                    "Provincias"
+                ],
+                "description": "Muestra la informacion de la provincia",
+                "operationId": "App\\Http\\Controllers\\ProvinciasController::show",
+                "parameters": [
+                    {
+                        "name": "idProvincia",
+                        "in": "path",
+                        "description": "id de la provincia en la que buscar informacion",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Muestra la informacion de la provincia"
+                    },
+                    "404": {
+                        "description": "No se ha encontrado la provincia"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Provincias"
+                ],
+                "description": "Crea una nueva provincia en la base de datos",
+                "operationId": "store",
+                "parameters": [
+                    {
+                        "name": "idProvincia",
+                        "in": "path",
+                        "description": "id de la provincia a modificar",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Datos a modificar en la base de datos",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "CODPROV": {
+                                        "description": "ID de la provincia a ingresar en la base de datos",
+                                        "type": "integer",
+                                        "format": "int64"
+                                    },
+                                    "NOMBRE": {
+                                        "description": "Nombre de la provincia",
+                                        "type": "integer",
+                                        "format": "int64"
+                                    },
+                                    "CODAUTO": {
+                                        "description": "Codigo de la comunidad autonoma a la que pertenece",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Provincia agregada correctamente"
+                    },
+                    "500": {
+                        "description": "Ha ingresado uno o varios campos erroneamente o hay un problema con el servidor"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Provincias"
+                ],
+                "description": "Elimina la provincia elegida",
+                "operationId": "App\\Http\\Controllers\\ProvinciasController::destroy",
+                "parameters": [
+                    {
+                        "name": "idProvincia",
+                        "in": "path",
+                        "description": "id de la provincia a eliminar",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Se ha eliminado correctamente"
+                    },
+                    "404": {
+                        "description": "No se ha encontrado el colegio con el ID seleccionado"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    }
+                }
+            }
+        },
+        "/Provincias/showFromComunidad/{idProvincia}": {
+            "get": {
+                "tags": [
+                    "Provincias"
+                ],
+                "description": "Muestra la informacion de las provincias de la comunidad elegida",
+                "operationId": "App\\Http\\Controllers\\ProvinciasController::showFromComunidad",
+                "parameters": [
+                    {
+                        "name": "idComunidad",
+                        "in": "path",
+                        "description": "id de la comunidad en la que buscar provincias",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Muestra la informacion de la provincia"
                     },
                     "500": {
                         "description": "Server Error"

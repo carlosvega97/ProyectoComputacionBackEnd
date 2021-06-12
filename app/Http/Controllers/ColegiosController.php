@@ -13,8 +13,9 @@ class ColegiosController extends Controller
     /**
      * @OA\Get(
      *     path="/Colegios",
-     *     description="Muestra todos los colegios del municipio",
+     *     description="Muestra todos los colegios",
      *     tags={"Colegios"},
+     *     operationId="index",
      *     @OA\Response(
      *          response="200", description="Todos los colegios"
      *      ),
@@ -37,7 +38,7 @@ class ColegiosController extends Controller
      *     operationId="store",
      *     @OA\Response(
      *         response=200,
-     *         description="Colegio Agregado correctamente"
+     *         description="Colegio agregado correctamente"
      *     ),
      *     @OA\Response(
      *         response=500,
@@ -138,7 +139,10 @@ class ColegiosController extends Controller
      *     description="Muestra la informacion del colegio ",
      *     tags={"Colegios"},
      *     @OA\Response(
-     *          response="200", description="Todos los colegios"
+     *          response="200", description="Muestra informacion del colegio"
+     *      ),
+     *     @OA\Response(
+     *          response="404", description="No se ha encontrado el colegio"
      *      ),
      *      @OA\Response(
      *          response="500", description="Server Error"
@@ -146,7 +150,7 @@ class ColegiosController extends Controller
      *      @OA\Parameter(
      *         name="idColegio",
      *         in="path",
-     *         description="id del colegio en el que buscar informacion",
+     *         description="ID del colegio en el que buscar informacion",
      *         required=true,
      *         @OA\Schema(
      *             type="integer",
@@ -158,15 +162,7 @@ class ColegiosController extends Controller
     public function show($id)
     {
         $colegio = Colegio::where('idColegio', $id)->firstOrFail();
-        if($colegio == null){
-            return response()->json($colegio, JsonResponse::HTTP_NOT_FOUND);
-        }
-        else{
-            return response()->json($colegio, JsonResponse::HTTP_OK);
-        }
-        
-        
-        
+        return response()->json($colegio, JsonResponse::HTTP_OK);
     }
 
     /**
@@ -176,8 +172,11 @@ class ColegiosController extends Controller
      *     description="Actualiza el colegio elegido en la base de datos",
      *     operationId="update",
      *     @OA\Response(
-     *         response=405,
-     *         description="Invalid input"
+     *          response="200", description="Se ha modificado el colegio correctamente"
+     *      ),    
+     *     @OA\Response(
+     *         response=500,
+     *         description="Ha ingresado uno o varios campos erroneamente o hay un problema con el servidor"
      *     ),
      *     @OA\Parameter(
      *         name="idColegio",
@@ -263,16 +262,7 @@ class ColegiosController extends Controller
     public function update(Request $request, $id)
     {
         $updateColegio = Colegio::where('idColegio', $id)->update($request->all());
-        if($updateColegio == 1){
-            return response()->json($updateColegio, JsonResponse::HTTP_OK);
-        }
-
-        else{
-            return response()->json($updateColegio, JsonResponse::HTTP_NOT_FOUND);
-        }
-        
-        //$updateColegio->save();
-        
+        return response()->json($updateColegio, JsonResponse::HTTP_NOT_FOUND);
         
     }
 
@@ -283,6 +273,9 @@ class ColegiosController extends Controller
      *     tags={"Colegios"},
      *     @OA\Response(
      *          response="200", description="Se ha eliminado correctamente"
+     *      ),
+     *      @OA\Response(
+     *          response="404", description="No se ha encontrado el colegio con el ID seleccionado"
      *      ),
      *      @OA\Response(
      *          response="500", description="Server Error"
