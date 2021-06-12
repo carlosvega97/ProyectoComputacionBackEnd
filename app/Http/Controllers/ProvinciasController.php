@@ -113,7 +113,7 @@ class ProvinciasController extends Controller
 
     /**
      * @OA\Get(
-     *     path="/Provincias/showFromComunidad/{idProvincia}",
+     *     path="/Provincias/showFromComunidad/{idComunidad}",
      *     description="Muestra la informacion de las provincias de la comunidad elegida",
      *     tags={"Provincias"},
      *     @OA\Response(
