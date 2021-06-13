@@ -338,6 +338,7 @@ class UsuariosController extends Controller
     }
 
     /**
+     * 
      * @OA\Get(
      *     path="/Usuarios/isAdmin/{idUsuario}",
      *     description="Comprueba es admin",
