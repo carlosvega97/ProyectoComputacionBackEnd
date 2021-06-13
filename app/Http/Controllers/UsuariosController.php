@@ -372,6 +372,21 @@ class UsuariosController extends Controller
             $isAdmin = true;
         }
         return $isAdmin;
-    }    
+    }
+
+    public function createUser(Request $usuario)
+    {
+
+        return Usuario::create([
+            'nombre' => $usuario->nombre,
+            'apellido' => $usuario->apellido,
+            'correo' => $usuario->correo,
+            'contrasena' => $usuario->contrasena,
+            'idMunicipio' => $usuario->idMunicipio,
+            'rol' => 0,
+        ]);
+
+    }
+
         
 }
