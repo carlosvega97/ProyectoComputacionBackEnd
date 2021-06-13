@@ -41,7 +41,7 @@
  * )
  * @OA\Tag(
  *     name="Busqueda",
- *     description="Acceso a información sobre los colegios"
+ *     description="Acceso a los métodos de búsqueda"
  * )
  * 
 */
