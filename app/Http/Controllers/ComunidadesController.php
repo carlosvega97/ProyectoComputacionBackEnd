@@ -10,20 +10,67 @@ use Illuminate\Http\JsonResponse;
 class ComunidadesController extends Controller
 {
     /**
-     * devuelve todos las comunidades existentes de la data base
-     *
-     * @return \Illuminate\Http\Response
+     * @OA\Get(
+     *     path="/Comunidades",
+     *     description="Muestra todas las comunidades",
+     *     tags={"Comunidades"},
+     *     operationId="index",
+     *     @OA\Response(
+     *          response="200", description="Todas las comunidades"
+     *      ),
+     *      @OA\Response(
+     *          response="500", description="Server Error"
+     *      ),
+     * )
      */
     public function index()
     {
         $comunidades = Comunidad::select('CODAUTO', 'AUTONOMIA', 'TEXTO_AUTONOMIA')->get();
         return response()->json($comunidades, JsonResponse::HTTP_OK);
     }
+    
     /**
-     * crea una nueva comunidad
-     *
-     * @return \Illuminate\Http\Response
+     * @OA\Post(
+     *     path="/Comunidades",
+     *     tags={"Comunidades"},
+     *     description="Crea una nueva comunidad en la base de datos",
+     *     operationId="store",
+     *     @OA\Response(
+     *         response=200,
+     *         description="Comunidad agregada correctamente"
+     *     ),
+     *     @OA\Response(
+     *         response=500,
+     *         description="Ha ingresado uno o varios campos erroneamente o hay un problema con el servidor"
+     *     ),
+     *     @OA\RequestBody(
+     *         description="Datos a ingresar en la base de datos",
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 type="object",
+     *                 @OA\Property(
+     *                     property="CODAUTO",
+     *                     description="ID de la comunidad a ingresar en la base de datos",
+     *                     type="integer",
+     *                     format="int64"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="AUTONOMIA",
+     *                     description="Nombre de la comunidad",
+     *                     type="string"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="TEXTO_AUTONOMIA",
+     *                     description="Texto de la comunidad",
+     *                     type="string"
+     *                 ),
+     *             )
+     *         )
+     *     )
+     * )
      */
+    
     public function store(Request $comunidad)
     {
         return Comunidad::create([
@@ -34,11 +81,32 @@ class ComunidadesController extends Controller
     }
 
     /**
-     * devuelve solo una comunidad en espesifico
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @OA\Get(
+     *     path="/Comunidades/{idComunidad}",
+     *     description="Muestra la informacion de la comunidad",
+     *     tags={"Comunidades"},
+     *     @OA\Response(
+     *          response="200", description="Muestra la informacion de la comunidad"
+     *      ),
+     *     @OA\Response(
+     *          response="404", description="No se ha encontrado la comunidad"
+     *      ),
+     *      @OA\Response(
+     *          response="500", description="Server Error"
+     *      ),
+     *      @OA\Parameter(
+     *         name="idComunidad",
+     *         in="path",
+     *         description="id de la comunidad en el que buscar informacion",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="integer",
+     *             format="int64"
+     *         )
+     *      )
+     * )
      */
+
     public function show($id)
     {
         try{
@@ -50,12 +118,57 @@ class ComunidadesController extends Controller
     }
 
     /**
-     * Modifica un objeto en espesifico y lo actualiza en la base de datos
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @OA\Put(
+     *     path="/Comunidades/{idComunidad}",
+     *     tags={"Comunidades"},
+     *     description="modifica una comunidad en la base de datos",
+     *     operationId="store",
+     *     @OA\Response(
+     *         response=200,
+     *         description="Comunidad modificado correctamente"
+     *     ),
+     *     @OA\Response(
+     *         response=500,
+     *         description="Ha ingresado uno o varios campos erroneamente o hay un problema con el servidor"
+     *     ),
+     *     @OA\Parameter(
+     *         name="idMunicipio",
+     *         in="path",
+     *         description="id de la comunidad a modificar",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="integer",
+     *             format="int64"
+     *         )
+     *      ),
+     *     @OA\RequestBody(
+     *         description="Datos a ingresar en la base de datos",
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 type="object",
+     *                 @OA\Property(
+     *                     property="CODAUTO",
+     *                     description="ID de la comunidad a ingresar en la base de datos",
+     *                     type="integer",
+     *                     format="int64"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="AUTONOMIA",
+     *                     description="Nombre de la comunidad",
+     *                     type="string"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="TEXTO_AUTONOMIA",
+     *                     description="Texto de la comunidad",
+     *                     type="string"
+     *                 ),
+     *             )
+     *         )
+     *     )
+     * )
      */
+
     public function update(Request $request, $id)
     {
         try {
@@ -67,10 +180,30 @@ class ComunidadesController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @OA\Delete(
+     *     path="/Comunidades/{idComunidad}",
+     *     description="Elimina la comunidad elegida",
+     *     tags={"Comunidades"},
+     *     @OA\Response(
+     *          response="200", description="Se ha eliminado correctamente"
+     *      ),
+     *      @OA\Response(
+     *          response="404", description="No se ha encontrado la comunidad con el ID seleccionado"
+     *      ),
+     *      @OA\Response(
+     *          response="500", description="Server Error"
+     *      ),
+     *      @OA\Parameter(
+     *         name="idComunidad",
+     *         in="path",
+     *         description="id de la comunidad a eliminar",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="integer",
+     *             format="int64"
+     *         )
+     *      )
+     * )
      */
     public function destroy($id)
     {

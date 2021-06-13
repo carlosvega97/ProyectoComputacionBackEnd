@@ -29,7 +29,7 @@ class MunicipiosController extends Controller
         return response()->json($municipios, JsonResponse::HTTP_OK);
     }
 
-     /**
+    /**
      * @OA\Get(
      *     path="/getNombreMunicipios",
      *     description="Muestra el nombre de todos municipios",
@@ -237,7 +237,7 @@ class MunicipiosController extends Controller
      *          response="200", description="Se ha eliminado correctamente"
      *      ),
      *      @OA\Response(
-     *          response="404", description="No se ha encontrado el colegio con el ID seleccionado"
+     *          response="404", description="No se ha encontrado el municipio con el ID seleccionado"
      *      ),
      *      @OA\Response(
      *          response="500", description="Server Error"

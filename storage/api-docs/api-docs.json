@@ -316,6 +316,177 @@
                 }
             }
         },
+        "/Comunidades": {
+            "get": {
+                "tags": [
+                    "Comunidades"
+                ],
+                "description": "Muestra todas las comunidades",
+                "operationId": "index",
+                "responses": {
+                    "200": {
+                        "description": "Todas las comunidades"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Comunidades"
+                ],
+                "description": "Crea una nueva comunidad en la base de datos",
+                "operationId": "store",
+                "requestBody": {
+                    "description": "Datos a ingresar en la base de datos",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "CODAUTO": {
+                                        "description": "ID de la comunidad a ingresar en la base de datos",
+                                        "type": "integer",
+                                        "format": "int64"
+                                    },
+                                    "AUTONOMIA": {
+                                        "description": "Nombre de la comunidad",
+                                        "type": "string"
+                                    },
+                                    "TEXTO_AUTONOMIA": {
+                                        "description": "Texto de la comunidad",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Comunidad agregada correctamente"
+                    },
+                    "500": {
+                        "description": "Ha ingresado uno o varios campos erroneamente o hay un problema con el servidor"
+                    }
+                }
+            }
+        },
+        "/Comunidades/{idComunidad}": {
+            "get": {
+                "tags": [
+                    "Comunidades"
+                ],
+                "description": "Muestra la informacion de la comunidad",
+                "operationId": "App\\Http\\Controllers\\ComunidadesController::show",
+                "parameters": [
+                    {
+                        "name": "idComunidad",
+                        "in": "path",
+                        "description": "id de la comunidad en el que buscar informacion",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Muestra la informacion de la comunidad"
+                    },
+                    "404": {
+                        "description": "No se ha encontrado la comunidad"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Comunidades"
+                ],
+                "description": "modifica una comunidad en la base de datos",
+                "operationId": "store",
+                "parameters": [
+                    {
+                        "name": "idMunicipio",
+                        "in": "path",
+                        "description": "id de la comunidad a modificar",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Datos a ingresar en la base de datos",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "CODAUTO": {
+                                        "description": "ID de la comunidad a ingresar en la base de datos",
+                                        "type": "integer",
+                                        "format": "int64"
+                                    },
+                                    "AUTONOMIA": {
+                                        "description": "Nombre de la comunidad",
+                                        "type": "string"
+                                    },
+                                    "TEXTO_AUTONOMIA": {
+                                        "description": "Texto de la comunidad",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Comunidad modificado correctamente"
+                    },
+                    "500": {
+                        "description": "Ha ingresado uno o varios campos erroneamente o hay un problema con el servidor"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Comunidades"
+                ],
+                "description": "Elimina la comunidad elegida",
+                "operationId": "App\\Http\\Controllers\\ComunidadesController::destroy",
+                "parameters": [
+                    {
+                        "name": "idComunidad",
+                        "in": "path",
+                        "description": "id de la comunidad a eliminar",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Se ha eliminado correctamente"
+                    },
+                    "404": {
+                        "description": "No se ha encontrado la comunidad con el ID seleccionado"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    }
+                }
+            }
+        },
         "/Hospitales": {
             "get": {
                 "tags": [
@@ -856,7 +1027,7 @@
                         "description": "Se ha eliminado correctamente"
                     },
                     "404": {
-                        "description": "No se ha encontrado el colegio con el ID seleccionado"
+                        "description": "No se ha encontrado el municipio con el ID seleccionado"
                     },
                     "500": {
                         "description": "Server Error"
@@ -1066,7 +1237,7 @@
                 }
             }
         },
-        "/Provincias/showFromComunidad/{idProvincia}": {
+        "/Provincias/showFromComunidad/{idComunidad}": {
             "get": {
                 "tags": [
                     "Provincias"
@@ -1088,6 +1259,303 @@
                 "responses": {
                     "200": {
                         "description": "Muestra la informacion de la provincia"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    }
+                }
+            }
+        },
+        "/Usuarios": {
+            "get": {
+                "tags": [
+                    "Usuarios"
+                ],
+                "description": "Muestra todos los usuarios",
+                "operationId": "index",
+                "responses": {
+                    "200": {
+                        "description": "Todos los usuarios"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Usuarios"
+                ],
+                "description": "Crea un nuevo usuarios en la base de datos",
+                "operationId": "store",
+                "requestBody": {
+                    "description": "Datos a ingresar en la base de datos",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "idUsuario": {
+                                        "description": "ID del usuario a ingresar en la base de datos",
+                                        "type": "integer",
+                                        "format": "int64"
+                                    },
+                                    "nombre": {
+                                        "description": "Nombre del usuario",
+                                        "type": "string"
+                                    },
+                                    "apellido": {
+                                        "description": "Apellido del usuario",
+                                        "type": "string"
+                                    },
+                                    "correo": {
+                                        "description": "Correo del usuario",
+                                        "type": "string"
+                                    },
+                                    "contrasena": {
+                                        "description": "Contraseña del usuario",
+                                        "type": "string"
+                                    },
+                                    "idMunicipio": {
+                                        "description": "Municipio del usuario",
+                                        "type": "integer",
+                                        "format": "int64"
+                                    },
+                                    "rol": {
+                                        "description": "Rol del usuario",
+                                        "type": "integer",
+                                        "format": "int64"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Usuario agregado correctamente"
+                    },
+                    "500": {
+                        "description": "Ha ingresado uno o varios campos erroneamente o hay un problema con el servidor"
+                    }
+                }
+            }
+        },
+        "/Usuarios/{idUsuario}": {
+            "get": {
+                "tags": [
+                    "Usuarios"
+                ],
+                "description": "Muestra la informacion del usuario",
+                "operationId": "App\\Http\\Controllers\\UsuariosController::show",
+                "parameters": [
+                    {
+                        "name": "idMunicipio",
+                        "in": "path",
+                        "description": "id del municipio en el que buscar informacion",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Muestra la informacion del usuario"
+                    },
+                    "404": {
+                        "description": "No se ha encontrado el municipio"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Usuarios"
+                ],
+                "description": "Elimina el municipio elegido",
+                "operationId": "App\\Http\\Controllers\\UsuariosController::destroy",
+                "parameters": [
+                    {
+                        "name": "idUsuarios",
+                        "in": "path",
+                        "description": "id del usuario a eliminar",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Se ha eliminado correctamente"
+                    },
+                    "404": {
+                        "description": "No se ha encontrado el usuario con el ID seleccionado"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    }
+                }
+            }
+        },
+        "/Usuarios/getIdFromCorreo/{correo}": {
+            "get": {
+                "tags": [
+                    "Usuarios"
+                ],
+                "description": "Muestra el id de los usuarios a través del correo",
+                "operationId": "App\\Http\\Controllers\\UsuariosController::getIdFromCorreo",
+                "parameters": [
+                    {
+                        "name": "correo",
+                        "in": "path",
+                        "description": "Correo del usuario del cual sacar el id",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Muestra el id de los usuarios a través del correo"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    }
+                }
+            }
+        },
+        "/Usuarios/{Usuario}": {
+            "put": {
+                "tags": [
+                    "Usuarios"
+                ],
+                "description": "Modifica un usuario en la base de datos",
+                "operationId": "store",
+                "parameters": [
+                    {
+                        "name": "idUsuario",
+                        "in": "path",
+                        "description": "id del usuario a modificar",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Datos a ingresar en la base de datos",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "idUsuario": {
+                                        "description": "ID del usuario a ingresar en la base de datos",
+                                        "type": "integer",
+                                        "format": "int64"
+                                    },
+                                    "nombre": {
+                                        "description": "Nombre del usuario",
+                                        "type": "string"
+                                    },
+                                    "apellidos": {
+                                        "description": "Apellido del usuario",
+                                        "type": "string"
+                                    },
+                                    "correo": {
+                                        "description": "Correo del usuario",
+                                        "type": "string"
+                                    },
+                                    "contraseña": {
+                                        "description": "Contraseña del usuario",
+                                        "type": "string"
+                                    },
+                                    "idMunicipio": {
+                                        "description": "Municipio del usuario",
+                                        "type": "string"
+                                    },
+                                    "rol": {
+                                        "description": "Rol del usuario",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Usuario modificado correctamente"
+                    },
+                    "500": {
+                        "description": "Ha ingresado uno o varios campos erroneamente o hay un problema con el servidor"
+                    }
+                }
+            }
+        },
+        "/Usuarios/existeUsuario/{correo}": {
+            "get": {
+                "tags": [
+                    "Usuarios"
+                ],
+                "description": "Comprueba si un usuario existe",
+                "operationId": "App\\Http\\Controllers\\UsuariosController::existeUsuario",
+                "parameters": [
+                    {
+                        "name": "correo",
+                        "in": "path",
+                        "description": "correo de un usuario",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Muestra si hay un usuario en la base de datos"
+                    },
+                    "404": {
+                        "description": "No se ha encontrado el usuario"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    }
+                }
+            }
+        },
+        "/Usuarios/isAdmin/{idUsuario}": {
+            "get": {
+                "tags": [
+                    "Usuarios"
+                ],
+                "description": "Comprueba es admin",
+                "operationId": "App\\Http\\Controllers\\UsuariosController::isAdmin",
+                "parameters": [
+                    {
+                        "name": "idUsuario",
+                        "in": "path",
+                        "description": "idUsuario",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Muestra si un usuario es admin"
+                    },
+                    "404": {
+                        "description": "No se ha encontrado el usuario"
                     },
                     "500": {
                         "description": "Server Error"
